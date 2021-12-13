@@ -114,7 +114,6 @@ include("cartprocess.php");
                     while ($cat_result = mysqli_fetch_array($fetch_category)) {
                         $i++;
                 ?>
-
                         <div class="col-3">
                             <a href="category.php?cid=<?php echo $cat_result['category_id']  ?>">
                                 <img src="<?php echo $cat_result['category_image']  ?>" alt="<?php echo $cat_result['category_name']  ?>">
@@ -172,7 +171,7 @@ include("cartprocess.php");
         <h2 class="title">Featured Products</h2>
         <div class="row">
             <?php
-            $query = "SELECT * FROM `products` order by product_id ASC LIMIT 4";
+            $query = "SELECT * FROM `products` where `product_quantity` >= 1 order by product_id ASC LIMIT 4";
             $result = mysqli_query($con, $query);
 
             $num  = mysqli_num_rows($result);
