@@ -10,7 +10,7 @@ $status = "";
 if (isset($_POST['code']) && $_POST['code'] != "") {
     $code = $_POST['code'];
     // THE FOLLOWING CODE IS GETTING FROM THE INPUT TYPE NAME AS name='code'
-    if (isset($_SESSION['user'])) {
+
 
         // THE FOLLOWING CODE IS GETTING FROM THE database
         $result = mysqli_query($con, "SELECT * FROM `products` WHERE `product_code`='$code'");
@@ -48,8 +48,8 @@ if (isset($_POST['code']) && $_POST['code'] != "") {
                 // $status = "<div class='box' style='color:red;'>
                 // Product is already added to your cart!</div>";	
                 echo '<script>
-                   alert("Product is already added to your cart!");
-               </script>';
+                        alert("Product is already added to your cart!");
+                        </script>';
             } else {
                 $_SESSION["shopping_cart"] = array_merge($_SESSION["shopping_cart"], $cartArray);
                 // $status = "<div class='box'>Product is added to your cart!</div>";
@@ -58,13 +58,6 @@ if (isset($_POST['code']) && $_POST['code'] != "") {
                 //    </script>';
             }
         }
-    } else {
-    //     echo '<script>
-    //     alert("Youy Must Logged in to Add Product in Cart");
-    // </script>';
-
-    include("loginpopup.php");
-
-    }
+    
 }
 ?>

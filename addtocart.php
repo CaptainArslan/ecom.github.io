@@ -8,15 +8,9 @@ if (isset($_POST['action']) && $_POST['action'] == "remove") {
                 unset($_SESSION["shopping_cart"][$key]); ?>
                 <script>
                     alert('Product is removed from Cart');
-                    window.location.href = 'http://localhost/ecom/index.php';
+                    window.location.href = 'index.php';
                 </script>
 <?php
-
-                //         $status = "<div class='box' style='color:red;'>
-                // Product is removed from your cart!</div>";
-                //     echo '<script>
-                //     alert("Product Deleted form cart!");
-                // </script>';
             }
             if (empty($_SESSION["shopping_cart"]))
                 unset($_SESSION["shopping_cart"]);
@@ -193,6 +187,8 @@ if (isset($_POST['action']) && $_POST['action'] == "changequantity") {
     <?php
     include("footer.php");
     ?>
+
+
 </body>
 
 </html>
