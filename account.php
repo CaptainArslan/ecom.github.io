@@ -13,8 +13,10 @@ include("dbcon.php");
     <title>Account | Red store Login and signup</title>
     <link rel="stylesheet" href="img/logo.png">
     <title>Cart Page | red store cart </title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
+        integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/account.css">
 </head>
 
@@ -64,24 +66,27 @@ include("dbcon.php");
                                 //Password verify is to check the necrypted password and the password in database in hashing format
 
                                 $pass_decode = password_verify($password, $db_pass);
-                                if ($pass_decode) {
+                                if ($pass_decode) 
+                                {
 
-                                    if(isset($_POST['rememberme'])){
+                                    if(isset($_POST['rememberme']))
+                                    {
                                         setcookie('EmailCookie',$useremail,time()+(86400*30));
                                         setcookie('PasswordCookie',$password,time()+(86400*30));
 
                                         
-                                    }else{
+                                    }else
+                                    {
                                         
                                     }
                                     // alert("Congratulation! you are logged in successfully");
                                     echo
                                     '<script>
-                                    
-                                    window.location.href = "http://localhost/ecom/index.php";
+                                    window.location.href = "index.php";
                                 </script>';
                                 }
-                                else{
+                                else
+                                {
                                     echo
                                     '<script>
                                     alert("Password! Does Not Matched");
@@ -96,12 +101,18 @@ include("dbcon.php");
                         }
                         ?>
 
-                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="LoginForm" method="POST">
-                            <input type="email" placeholder="email" name="useremail" value="<?php if(isset($_COOKIE['EmailCookie'])) { echo $_COOKIE['EmailCookie']; } ?>" required>
-                            <input type="password" placeholder="Password" id="loginpassword" name="password" value="<?php if(isset($_COOKIE['PasswordCookie'])) { echo $_COOKIE['PasswordCookie']; } ?>" required>
-                            <input type="checkbox" onclick="passwordToogle()" id="showpassword"><text class="showpassword">Show Password</text><br>
+                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" id="LoginForm"
+                            method="POST">
+                            <input type="email" placeholder="email" name="useremail"
+                                value="<?php if(isset($_COOKIE['EmailCookie'])) { echo $_COOKIE['EmailCookie']; } ?>"
+                                required>
+                            <input type="password" placeholder="Password" id="loginpassword" name="password"
+                                value="<?php if(isset($_COOKIE['PasswordCookie'])) { echo $_COOKIE['PasswordCookie']; } ?>"
+                                required>
+                            <input type="checkbox" onclick="passwordToogle()" id="showpassword"><text
+                                class="showpassword">Show Password</text><br>
                             <input type="checkbox" id="showpassword" name="rememberme">
-                            <text class="showpassword"  >Remember Me</text>
+                            <text class="showpassword">Remember Me</text>
                             <button type="submit" class="btn" name="login_btn">Login</button>
                             <a href="">Forget Password</a>
                         </form>
@@ -169,8 +180,10 @@ include("dbcon.php");
                             <input type="email" placeholder="Email" name="txt_email" required>
                             <input type="number" placeholder="Phone" name="txt_phone" required>
                             <input type="password" placeholder="Password" id="password" name="txt_password" required>
-                            <input type="password" placeholder="Confirm Password" id="confirm_password" name="txt_confirm_password" required>
-                            <input type="checkbox" onclick="passwordToogle()" id="showpassword"><text class="showpassword">Show Password</text>
+                            <input type="password" placeholder="Confirm Password" id="confirm_password"
+                                name="txt_confirm_password" required>
+                            <input type="checkbox" onclick="passwordToogle()" id="showpassword"><text
+                                class="showpassword">Show Password</text>
                             <button type="submit" class="btn" name="register_btn">Register</button>
                             <p onclick="login()" class="alreadyhaveanaccount">Already have an Account </p>
                         </form>

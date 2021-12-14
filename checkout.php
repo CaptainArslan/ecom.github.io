@@ -156,7 +156,7 @@ include("dbcon.php");
                                     ?>
                                             <div class="products" style="background: #fff; display: flex; justify-content: space-between; border-radius: 10px; margin-top: 10px; padding: 10px; align-items: center;">
                                                 <div class="product_img">
-                                                    <img src="<?php echo $product["product_image"]; ?>" alt="<?php echo $product["product_name"]; ?>" style="height: 60px; width: 60px; border-radius: 50%; flex-basis: 20%;">
+                                                    <img src="\ecom\img\product_img\<?php echo $product["product_image"]; ?>" alt="<?php echo $product["product_name"]; ?>" style="height: 60px; width: 60px; border-radius: 50%; flex-basis: 20%;">
                                                 </div>
                                                 <div class="product_name_price" style="display: flex; justify-content: space-between; flex-basis: 80%;">
                                                     <p><?php echo $product["product_name"]; ?></p>
