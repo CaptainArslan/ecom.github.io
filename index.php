@@ -18,6 +18,12 @@ include("cartprocess.php");
 </head>
 
 <body>
+
+    <div class="chat-person">
+        <a href="https://capchatt.000webhostapp.com/" target="_blank" style="color: #fff;">
+            <i class="fas fa-comment-alt"></i>
+        </a>
+    </div>
   
     <div onclick="topFunction()" id="totop" title="Go to top"><i class="fas fa-angle-up"></i></div>
 

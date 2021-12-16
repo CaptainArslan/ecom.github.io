@@ -13,6 +13,11 @@
 </head>
 
 <body>
+    <div class="chat-person">
+        <a href="https://capchatt.000webhostapp.com/" target="_blank" style="color: #fff;">
+            <i class="fas fa-comment-alt"></i>
+        </a>
+    </div>
     <?php
     include("cartprocess.php");
     ?>
