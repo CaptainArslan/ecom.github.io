@@ -26,8 +26,16 @@ include("cartprocess.php");
     </div>
   
     <div onclick="topFunction()" id="totop" title="Go to top"><i class="fas fa-angle-up"></i></div>
-
-
+<?php 
+    if(isset($_SESSION['order'])){
+    ?>
+        <div class="alert">
+            <button class="closebtn" onclick="this.parentElement.style.display='none';">&times;</button>
+            <strong><?php echo $_SESSION['order']; ?></strong> 
+        </div>
+    <?php
+    }
+?>
     <!-- Header -->
     <div class="header">
         <div class="container">

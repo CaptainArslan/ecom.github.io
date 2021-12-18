@@ -235,20 +235,12 @@ include("dbcon.php");
         if($order == true)
         {
             unset($_SESSION['shopping_cart']);
-            ?>
-                <script>
-                    alert("Order has been placed successfully");
-                    window.location.href = "index.php";
-                </script>
-            <?php
+            $_SESSION['order'] = "Order has been placed";
+            header("location: index.php");
         }
         else
         {
-            ?>
-                <script>
-                    alert("Error Occured While Order Placement");
-                </script>
-            <?php
+            $_SESSION['order'] = "Error Occured While order place";
         }
 
         
