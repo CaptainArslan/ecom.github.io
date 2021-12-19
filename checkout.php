@@ -19,20 +19,17 @@ include("dbcon.php");
 
 <body>
     <?php
-    if(isset($_SESSION['shopping_cart']))
-    {
-        if (isset($_SESSION['user'])) 
-        {
+    if (isset($_SESSION['shopping_cart'])) {
+        if (isset($_SESSION['user'])) {
             $user_email = $_SESSION['email'];
 
             $check_user  = mysqli_query($con, "SELECT * FROM `user` where `user_email` = '$user_email'");
 
             $user_count = mysqli_num_rows($check_user);
-            if ($user_count > 0) 
-            {
+            if ($user_count > 0) {
                 while ($user_db_data = mysqli_fetch_array($check_user)) {
 
-                ?>
+    ?>
                     <form action="" method="POST">
                         <div class="row">
                             <div class="col-2">
@@ -46,10 +43,10 @@ include("dbcon.php");
                                         <input type="text" name="" id="" placeholder="M Arslan" title="username" value="<?php echo $user_db_data['user_id']; ?>" > -->
 
                                         <label for="">User Name</label>
-                                        <input type="text" name="user_name" id="" placeholder="M Arslan" title="username" value="<?php echo $user_db_data['user_name']; ?>" >
+                                        <input type="text" name="user_name" id="" placeholder="M Arslan" title="username" value="<?php echo $user_db_data['user_name']; ?>">
 
                                         <label for="">Email</label>
-                                        <input type="email" name="user_email" id="" placeholder="123456@gmail.com" value="<?php echo $user_db_data['user_email']; ?>" >
+                                        <input type="email" name="user_email" id="" placeholder="123456@gmail.com" value="<?php echo $user_db_data['user_email']; ?>">
 
                                         <?php
                                         $id = $user_db_data['user_id'];
@@ -61,20 +58,20 @@ include("dbcon.php");
                                             foreach ($check_user_result as $value) {
                                         ?>
                                                 <label for="">Address</label>
-                                                <input type="text" name="user_address" id="" placeholder="524 gujranwala ..." value="<?php echo $value['user_address']; ?>" >
+                                                <input type="text" name="user_address" id="" placeholder="524 gujranwala ..." value="<?php echo $value['user_address']; ?>" required>
                                                 <label for="">City</label>
-                                                <input type="text" name="user_city" id="" placeholder="Gujranwala" value="<?php echo $value['user_city']; ?>" >
+                                                <input type="text" name="user_city" id="" placeholder="Gujranwala" value="<?php echo $value['user_city']; ?>" required>
                                                 <div class="row-2">
                                                     <div class="input-container">
                                                         <label for="">Zip</label>
-                                                        <input type="text" name="user_zip" id="" placeholder="52250" value="<?php echo $value['user_zip']; ?>" >
+                                                        <input type="text" name="user_zip" id="" placeholder="52250" value="<?php echo $value['user_zip']; ?>" required>
                                                     </div>
                                                     <div class="input-container">
                                                         <label for="">State</label>
-                                                        <input type="text" name="user_state" id="" placeholder="gujranwala" value="<?php echo $value['user_state']; ?>" >
+                                                        <input type="text" name="user_state" id="" placeholder="gujranwala" value="<?php echo $value['user_state']; ?>" required>
                                                     </div>
                                                 </div>
-                                            <?php
+                                        <?php
                                             }
                                         } else {
                                             include_once("loginpopup.php");
@@ -156,7 +153,7 @@ include("dbcon.php");
                                     ?>
                                             <div class="products" style="background: #fff; display: flex; justify-content: space-between; border-radius: 10px; margin-top: 10px; padding: 10px; align-items: center;">
                                                 <div class="product_img">
-                                                    <img src="\ecom\img\product_img\<?php echo $product["product_image"]; ?>" alt="<?php echo $product["product_name"]; ?>" style="height: 60px; width: 60px; border-radius: 50%; flex-basis: 20%;">
+                                                    <img src="img\product_img\<?php echo $product["product_image"]; ?>" alt="<?php echo $product["product_name"]; ?>" style="height: 60px; width: 60px; border-radius: 50%; flex-basis: 20%;">
                                                 </div>
                                                 <div class="product_name_price" style="display: flex; justify-content: space-between; flex-basis: 80%;">
                                                     <p><?php echo $product["product_name"]; ?></p>
@@ -184,18 +181,17 @@ include("dbcon.php");
                             <button class="place_order" type="submit" name="placeorder" style="background: #ff523b;padding: 10px;text-align: center;color: #fff; border-radius: 10px;outline: none;border: none;font-size: 15px; justify-content: center;">Place Order</button>
                         </div>
                     </form>
-                <?php
+    <?php
                 }
             }
-        }else{
+        } else {
             include_once('loginpopup.php');
         }
-    }else
-    {
+    } else {
         header('Location: index.php');
     }
     ?>
-    
+
     <?php
     if (isset($_POST['placeorder'])) {
 
@@ -206,44 +202,38 @@ include("dbcon.php");
         $total_quantity = 0;
         $order = true;
 
-        $date = date("Y/m/d H:i:s");  
+        $date = date("Y/m/d H:i:s");
         $email = $_POST['user_email'];
         $user_id = $_POST['user_id'];
         $address = $_POST['user_address'];
         $city = $_POST['user_city'];
         $state = $_POST['user_state'];
         $zip = $_POST['user_zip'];
-        
-        foreach ($_SESSION["shopping_cart"] as $product) 
-        {
+
+        foreach ($_SESSION["shopping_cart"] as $product) {
             $pro_name = $product["product_name"];
             $total_quantity = $product["product_quantity"];
             $total_price = ($product["product_price"] * $product["product_quantity"]);
             $total_tax = ($product["product_tax"] * $product["product_quantity"]);
             $grand_total = $total_price + $total_tax;
             $image  = $product["product_image"];
-            $orderquery = mysqli_query($con,"INSERT INTO `orders`(`date_time`, `user_id`, `product_name`, `product_img`, `product_quantity`,
+            $orderquery = mysqli_query($con, "INSERT INTO `orders`(`date_time`, `user_id`, `product_name`, `product_img`, `product_quantity`,
              `product_price`, `product_tax`, `grand_total`, `user_address`, `user_city`, `user_zip`, `user_state`) VALUES
              ('$date','$user_id','$pro_name','$image','$total_quantity','$total_price','$total_tax','$grand_total','$address'
              ,'$city','$zip','$state')");
-            
-            if(!$orderquery){
+
+            if (!$orderquery) {
                 $order = false;
                 break;
-            } 
+            }
         }
-        if($order == true)
-        {
+        if ($order == true) {
             unset($_SESSION['shopping_cart']);
             $_SESSION['order'] = "Order has been placed";
             header("location: index.php");
-        }
-        else
-        {
+        } else {
             $_SESSION['order'] = "Error Occured While order place";
         }
-
-        
     }
     ?>
 

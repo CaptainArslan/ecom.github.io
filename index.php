@@ -133,7 +133,7 @@ include("cartprocess.php");
                 ?>
                         <div class="col-3">
                             <a href="category.php?cid=<?php echo $cat_result['category_id']  ?>">
-                                <img src="<?php echo $cat_result['category_image']  ?>" alt="<?php echo $cat_result['category_name']  ?>">
+                                <img src="img/categories/<?php echo $cat_result['category_image']  ?>" alt="<?php echo $cat_result['category_name']  ?>">
                                 <div class="row">
                                     <h3><?php echo $cat_result['category_name']  ?></h3>
                                 </div>
@@ -323,7 +323,7 @@ include("cartprocess.php");
                     while ($logo = mysqli_fetch_array($sponser_logo)) {
                 ?>
                         <div class="col-5">
-                            <img src="<?php echo $logo['sponser_image']; ?>" alt="Sponser Logo">
+                            <img src="img\supponserlogo\<?php echo $logo['sponser_image']; ?>" alt="Sponser Logo">
                         </div>
                     <?php
                     }

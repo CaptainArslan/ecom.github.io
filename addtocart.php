@@ -70,7 +70,7 @@ if (isset($_POST['action']) && $_POST['action'] == "changequantity") {
                     <tr>
                         <td>
                             <div class="cart-info">
-                                <img src="\ecom\img\product_img\<?php echo $product["product_image"]; ?>" alt="<?php echo $product["product_name"]; ?>">
+                                <img src="img\product_img\<?php echo $product["product_image"]; ?>" alt="<?php echo $product["product_name"]; ?>">
                                 <div>
                                     <p><?php echo $product["product_name"]; ?></p>
                                     <small>Price: <?php echo $product["product_price"]; ?></small>
