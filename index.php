@@ -15,6 +15,9 @@ include("cartprocess.php");
     <link rel="shortcut icon" type="image" href="img/logos/logo-white.png">
     <title>Ecommerce Store</title>
     <link rel="stylesheet" href="css/index.css">
+    <!-- Jquery  -->
+    <script src="js/jquery-2.1.1.js"></script>
+
 </head>
 
 <body>
@@ -24,18 +27,18 @@ include("cartprocess.php");
             <i class="fas fa-comment-alt"></i>
         </a>
     </div>
-  
+
     <div onclick="topFunction()" id="totop" title="Go to top"><i class="fas fa-angle-up"></i></div>
-<?php 
-    if(isset($_SESSION['order'])){
+    <?php
+    if (isset($_SESSION['order'])) {
     ?>
         <div class="alert">
             <button class="closebtn" onclick="this.parentElement.style.display='none';">&times;</button>
-            <strong><?php echo $_SESSION['order']; ?></strong> 
+            <strong><?php echo $_SESSION['order']; ?></strong>
         </div>
     <?php
     }
-?>
+    ?>
     <!-- Header -->
     <div class="header">
         <div class="container">
@@ -152,35 +155,10 @@ include("cartprocess.php");
                 <?php
                 }
                 ?>
-                <!-- <div class="col-3">
-                    <a href="">
-                        <img src="img/categories/category-1.jpg" alt="">
-                        <div class="row">
-                            <h3>Category Name</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-3">
-                    <a href="">
-                        <img src="img/categories/category-2.jpg" alt="">
-                        <div class="row">
-                            <h3>Category Name</h3>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-3">
-                    <a href="">
-                        <img src="img/categories/category-3.jpg" alt="">
-                        <div class="row">
-                            <h3>Category Name</h3>
-                        </div>
-                    </a>
-                </div> -->
             </div>
         </div>
     </div>
-    <!-- Feature Categories -->
-
+    <!-- Feature Products -->
     <div class="small_container">
         <h2 class="title">Featured Products</h2>
         <div class="row">
@@ -195,7 +173,7 @@ include("cartprocess.php");
                     <form action="" method="POST" class="col-4">
                         <div class="col-4">
                             <input type='hidden' name='code' value="<?php echo  $row['product_code']; ?>" />
-                            <img src="\ecom\img\product_img\<?php echo  $row['product_image']; ?>" alt="Product Image">
+                            <img src="\ecom\img\product_img\<?php echo  $row['product_image']; ?>" alt="Product Image" class="product_image" id="<?php echo  $row['product_code']; ?>">
                             <h4><?php echo $row['product_name']; ?></h4>
                             <div class="rating">
                                 <i class="fa fa-star"><?php echo $row['product_rating']; ?></i>
@@ -231,7 +209,7 @@ include("cartprocess.php");
                     <form action="" method="POST" class="col-4">
                         <div class="col-4">
                             <input type='hidden' name='code' value="<?php echo  $row['product_code']; ?>" />
-                            <img src="\ecom\img\product_img\<?php echo  $row['product_image']; ?>" alt="Product Image">
+                            <img src="\ecom\img\product_img\<?php echo  $row['product_image']; ?>" alt="Product Image" class="product_image" id="<?php echo  $row['product_code']; ?>">
                             <h4><?php echo $row['product_name']; ?></h4>
                             <div class="rating">
                                 <i class="fa fa-star"><?php echo $row['product_rating']; ?></i>
@@ -253,6 +231,17 @@ include("cartprocess.php");
         </div>
 
     </div>
+
+
+    <!-- Modal -->
+    <form action="" method="post">
+        <div class="product_modal" id="product_modal">
+            
+        </div>
+    </form>
+
+
+
     <!-- Offer -->
     <div class="offer">
         <div class="small_container">
@@ -334,7 +323,7 @@ include("cartprocess.php");
                     while ($logo = mysqli_fetch_array($sponser_logo)) {
                 ?>
                         <div class="col-5">
-                            <img src="<?php echo $logo['sponser_image']; ?>" alt="<?php echo $logo['sponser_name']; ?>">
+                            <img src="<?php echo $logo['sponser_image']; ?>" alt="Sponser Logo">
                         </div>
                     <?php
                     }
@@ -345,21 +334,6 @@ include("cartprocess.php");
                 }
 
                 ?>
-                <!-- <div class="col-5">
-                    <img src="img/supponserlogo/logo-coca-cola.png" alt="logo icon">
-                </div>
-                <div class="col-5">
-                    <img src="img/supponserlogo/logo-godrej.png" alt="Logo icon">
-                </div>
-                <div class="col-5">
-                    <img src="img/supponserlogo/logo-oppo.png" alt="Logo icon">
-                </div>
-                <div class="col-5">
-                    <img src="img/supponserlogo/logo-paypal.png" alt="Logo icon">
-                </div>
-                <div class="col-5">
-                    <img src="img/supponserlogo/logo-philips.png" alt="Logo icon">
-                </div> -->
             </div>
         </div>
     </div>
@@ -392,50 +366,35 @@ include("cartprocess.php");
             </div>
         </div>
     </div>
-
-    <script>
-        var modal = document.getElementById('id01');
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
 </body>
-<!-- js for toggle menu -->
 <script>
-    var MenuItems = document.getElementById("MenuItems");
+    $(document).ready(function() {
+        $('#product_modal').hide();
+        $('.product_image').click(function() {
+            var image = $(this).attr('id');
+            $.ajax({
+                type: "POST",
+                url: "ajaxhandler.php",
+                data: {
+                    image: image
+                },
+                success: function(response) {
+                    if (response == "false") {
+                        alert("Error Occured While Opening Quick view");
+                        $('#product_modal').hide();
+                    } else {
 
-    MenuItems.style.maxHeight = "0px";
-
-    function menutoggle() {
-        if (MenuItems.style.maxHeight == "0px") {
-            MenuItems.style.maxHeight = "200px";
-        } else {
-            MenuItems.style.maxHeight = "0px";
-        }
-    }
-
-    // move down to top 
-
-    window.onscroll = function() {
-        scrollFunction()
-    };
-
-    function scrollFunction() {
-        if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
-            totop.style.display = "block";
-        } else {
-            totop.style.display = "none";
-        }
-    }
-
-    // When the user clicks on the button, scroll to the top of the document
-    function topFunction() {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-    }
+                        // alert(response);
+                        // db_response = JSON.parse(response);
+                        $('#product_modal').show();
+                        $('#product_modal').html(response);
+                        // alert(response);
+                    }
+                }
+            });
+        });
+    });
 </script>
+<script src="js/js.js"></script>
 
 </html>
