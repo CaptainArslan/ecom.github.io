@@ -18,6 +18,8 @@ include("dbcon.php");
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css"
         integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/account.css">
+
+    <script src="js/sweetalert_plugin.js"></script>
 </head>
 
 <body>
@@ -52,7 +54,8 @@ include("dbcon.php");
 
                             $mailcount = mysqli_num_rows($emailcheck);
 
-                            if ($mailcount > 0) {
+                            if ($mailcount > 0) 
+                            {
                                 $db_data = mysqli_fetch_assoc($emailcheck);
 
                                 $db_pass = $db_data['user_password'];
@@ -82,21 +85,27 @@ include("dbcon.php");
                                     // alert("Congratulation! you are logged in successfully");
                                     echo
                                     '<script>
-                                    window.location.href = "index.php";
+                                    window.location.href = "account.php";
                                 </script>';
                                 }
-                                else
+                                else 
                                 {
-                                    echo
-                                    '<script>
-                                    alert("Password! Does Not Matched");
-                                </script>';
+                                    echo '<script>
+                                        swal({
+                                            title: "Error Occured",
+                                            text: "Password! Does Not Matched",
+                                            icon: "warning",
+                                        });
+                                        </script>';
                                 }
                             } else {
-                                echo
-                                '<script>
-                                    alert("Invalid Email");
-                                </script>';
+                                echo '<script>
+                                        swal({
+                                            title: "Error Occured",
+                                            text: "Invalid Email or password ",
+                                            icon: "warning",
+                                        });
+                                        </script>';
                             }
                         }
                         ?>
@@ -160,14 +169,20 @@ include("dbcon.php");
                                         VALUES ('$date','$user_name','$user_email','$user_phone','$pass','$cpass')";
 
                                     $queryfire = mysqli_query($con, $insertquery);
-                                    echo
-                                    '<script>
-                                            alert("User Regiatered Successfully! ");
+                                    echo '<script>
+                                        swal({
+                                            title: "Great News!",
+                                            text: "Your Are Registered Successfully",
+                                            icon: "success",
+                                        });
                                         </script>';
                                 } else {
-                                    echo
-                                    '<script>
-                                            alert("Password! Does Not Matched Correctly");
+                                        echo '<script>
+                                        swal({
+                                            title: "Error",
+                                            text: "Password! Does Not Matched Correctly!",
+                                            icon: "warning",
+                                        });
                                         </script>';
                                 }
                             }
@@ -180,8 +195,7 @@ include("dbcon.php");
                             <input type="email" placeholder="Email" name="txt_email" required>
                             <input type="number" placeholder="Phone" name="txt_phone" required>
                             <input type="password" placeholder="Password" id="password" name="txt_password" required>
-                            <input type="password" placeholder="Confirm Password" id="confirm_password"
-                                name="txt_confirm_password" required>
+                            <input type="password" placeholder="Confirm Password" id="confirm_password" name="txt_confirm_password" required>
                             <input type="checkbox" onclick="passwordToogle()" id="showpassword"><text
                                 class="showpassword">Show Password</text>
                             <button type="submit" class="btn" name="register_btn">Register</button>

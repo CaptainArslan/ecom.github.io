@@ -13,6 +13,8 @@ include("header.php");
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/allproduct.css">
 
+    <script src="js/jquery-2.1.1.js"></script>
+
 </head>
 
 <body>
@@ -74,7 +76,7 @@ include("header.php");
                     <form action="" method="POST" class="col-4">
                         <div class="col-4">
                             <input type='hidden' name='code' value="<?php echo  $row['product_code']; ?>" />
-                            <img src="\ecom\img\product_img\<?php echo  $row['product_image']; ?>" alt="Product Image">
+                            <img src="\ecom\img\product_img\<?php echo  $row['product_image']; ?>" alt="Product Image" class="product_image" id="<?php echo  $row['product_code']; ?>">
                             <h4><?php echo $row['product_name']; ?></h4>
                             <div class="rating">
                                 <i class="fa fa-star"><?php echo $row['product_rating']; ?></i>
@@ -89,8 +91,12 @@ include("header.php");
             }
             ?>
         </div>
-
-
+    <!-- Modal -->
+    <form action="" method="post">
+        <div class="product_modal" id="product_modal">
+            
+        </div>
+    </form>
         <!-- Page Number -->
 
         <?php
@@ -106,20 +112,19 @@ include("header.php");
                 <?php
                 if ($page > 1) {
                 ?>
-                    <a href="allproducts.php?page=<?php echo $page-1; ?>"><span>&#8592 </span></a>
+                    <a href="allproducts.php?page=<?php echo $page - 1; ?>"><span>&#8592 </span></a>
                 <?php
                 }
                 ?>
                 <!-- Previous Page button Code End -->
                 <?php
                 for ($i = 1; $i <= $total_page; $i++) {
-                
-                if($i == $page)
-                {
-                    $active = "active";
-                }else{
-                    $active = "";
-                }
+
+                    if ($i == $page) {
+                        $active = "active";
+                    } else {
+                        $active = "";
+                    }
                 ?>
                     <a href="allproducts.php?page=<?php echo $i; ?>"><span class="<?php echo $active; ?>"><?php echo $i; ?></span></a>
                 <?php
@@ -127,7 +132,7 @@ include("header.php");
                 ?>
                 <!-- Next Page button Code Start-->
                 <?php
-                
+
                 if ($total_page > $page) {
                 ?>
                     <a href="allproducts.php?page=<?php echo $page + 1; ?>"><span>&#8594</span></a>
@@ -149,7 +154,35 @@ include("header.php");
             <a href=""><span>&#8594</span></a>
         </div> -->
     </div>
+    <script>
+        $(document).ready(function() {
+            $('#product_modal').hide();
+            $('.product_image').click(function() {
+                var image = $(this).attr('id');
+                $.ajax({
+                    type: "POST",
+                    url: "ajaxhandler.php",
+                    data: {
+                        image: image
+                    },
+                    success: function(response) {
+                        if (response == "false") {
+                            alert("Error Occured While Opening Quick view");
+                            $('#product_modal').hide();
+                        } else {
 
+                            // alert(response);
+                            // db_response = JSON.parse(response);
+                            $('#product_modal').show();
+                            $('#product_modal').html(response);
+                            // alert(response);
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+    <script src="js/js.js"></script>
 </body>
 <?php
 include("footer.php");
