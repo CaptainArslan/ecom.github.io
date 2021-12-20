@@ -76,7 +76,7 @@ include("header.php");
                     <form action="" method="POST" class="col-4">
                         <div class="col-4">
                             <input type='hidden' name='code' value="<?php echo  $row['product_code']; ?>" />
-                            <img src="\ecom\img\product_img\<?php echo  $row['product_image']; ?>" alt="Product Image" class="product_image" id="<?php echo  $row['product_code']; ?>">
+                            <img src="img\product_img\<?php echo  $row['product_image']; ?>" alt="Product Image" class="product_image" id="<?php echo  $row['product_code']; ?>">
                             <h4><?php echo $row['product_name']; ?></h4>
                             <div class="rating">
                                 <i class="fa fa-star"><?php echo $row['product_rating']; ?></i>
