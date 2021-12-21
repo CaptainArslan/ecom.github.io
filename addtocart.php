@@ -7,8 +7,13 @@ if (isset($_POST['action']) && $_POST['action'] == "remove") {
             if ($_POST["product_code"] == $key) {
                 unset($_SESSION["shopping_cart"][$key]); ?>
                 <script>
-                    alert('Product is removed from Cart');
-                    window.location.href = 'index.php';
+                    swal({
+                        title: "Product Removed!",
+                        text: "Product is removed from Cart!",
+                        icon: "warning",
+                    }).then(function() {
+                        window.location.href = "addtocart.php";
+                    });
                 </script>
 <?php
             }

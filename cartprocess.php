@@ -47,8 +47,15 @@ if (isset($_POST['code']) && $_POST['code'] != "") {
             if (in_array($code, $array_keys)) {
                 // $status = "<div class='box' style='color:red;'>
                 // Product is already added to your cart!</div>";	
-                echo '<script>
-                        alert("Product is already added to your cart!");
+                // echo '<script>
+                //         alert("Product is already added to your cart!");
+                //         </script>';
+                        echo '<script>
+                        swal({
+                            title: "Error Occur",
+                            text: "Product is already added to your cart!",
+                            icon: "warning",
+                        });
                         </script>';
             } else {
                 $_SESSION["shopping_cart"] = array_merge($_SESSION["shopping_cart"], $cartArray);
