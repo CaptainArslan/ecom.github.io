@@ -236,7 +236,7 @@ include("cartprocess.php");
     <!-- Modal -->
     <form action="" method="post">
         <div class="product_modal" id="product_modal">
-            
+
         </div>
     </form>
 
@@ -356,7 +356,8 @@ include("cartprocess.php");
                             echo $_SESSION['user'];
                         } else {
                             echo "User Name";
-                        } ?></h3>
+                        } ?>
+                    </h3>
                     <!-- <h4>Front-end Developer</h4> -->
                 </div>
                 <div>

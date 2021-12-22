@@ -7,16 +7,8 @@ include("dbcon.php");
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
-    <link rel="shortcut icon" type="image" href="img/logos/logo-white.png">
     <link rel="stylesheet" href="css/checkout.css">
     <title>Chekout | Red Store</title>
-
-    <script src="js/sweetalert_plugin.js"></script>
 </head>
 
 <body>
@@ -253,6 +245,17 @@ include("dbcon.php");
 
         if ($order == true) {
 
+            
+
+            unset($_SESSION['shopping_cart']);
+            echo '<script>
+           swal({
+            title: "Great News!",
+            text: "Your Order has been placed successfully",
+            icon: "success",
+           })
+           </script>';
+
             $to_email = "mughalarslan996@gmail.com";
             $subject = "Simple Email Test via PHP";
             $body = "Hi, This is test email send by PHP Script";
@@ -263,15 +266,6 @@ include("dbcon.php");
             } else {
                 echo "Email sending failed...";
             }
-
-            unset($_SESSION['shopping_cart']);
-            echo '<script>
-           swal({
-            title: "Great News!",
-            text: "Your Order has been placed successfully",
-            icon: "success",
-           })
-           </script>';
 
         //    .then(function() {
         //     location.reload();

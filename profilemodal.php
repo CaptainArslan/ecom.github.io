@@ -1,9 +1,19 @@
+<?php 
+ if (isset($_SESSION['user'])) {
+      echo $_SESSION['user'];
+  } else {
+      echo "";
+  }
+
+  include("header.php");
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/index.css">
     <title>Document</title>
 </head>
 <body>
@@ -11,13 +21,14 @@
     <div class="card-container" >
         <div class="upper-container">
            <div class="image-container">
-              <img src="Img_Assets/user-2.png" />
+              <img src="img/user/user-1.png" />
            </div>
         </div>
         <div class="lower-container">
            <div>
-              <h3><?php echo $_SESSION['username']?></h3>
+              <h3><?php echo $_SESSION['user']?></h3>
               <h4>Front-end Developer</h4>
+              <?php  echo $_SESSION['user'];?>
            </div>
            <div>
               <p>sodales accumsan ligula. Aenean sed diam tristique,
