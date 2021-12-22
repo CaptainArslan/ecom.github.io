@@ -224,7 +224,7 @@ include("dbcon.php");
                 $order = false;
                 break;
             } else {
-                
+
 
                 $order_tbl_products_quantity = mysqli_query($con, "SELECT `product_quantity` FROM `products` WHERE `product_code` = '$pro_code'");
                 $pro = mysqli_fetch_assoc($order_tbl_products_quantity);
@@ -245,7 +245,7 @@ include("dbcon.php");
 
         if ($order == true) {
 
-            
+
 
             unset($_SESSION['shopping_cart']);
             echo '<script>
@@ -253,23 +253,16 @@ include("dbcon.php");
             title: "Great News!",
             text: "Your Order has been placed successfully",
             icon: "success",
-           })
+           }).then(function(){
+                location.reload();
+           });
            </script>';
 
-            $to_email = "mughalarslan996@gmail.com";
-            $subject = "Simple Email Test via PHP";
-            $body = "Hi, This is test email send by PHP Script";
-            $headers = "From: arslan031776@gmail.com";
 
-            if (mail($to_email, $subject, $body, $headers)) {
-                echo "Email successfully sent to $to_email...";
-            } else {
-                echo "Email sending failed...";
-            }
 
-        //    .then(function() {
-        //     location.reload();
-        //     });
+            //    .then(function() {
+            //     location.reload();
+            //     });
         } else {
             echo '<script>
            swal({
