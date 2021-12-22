@@ -64,6 +64,10 @@ td img{
     margin-right: 10px;
     object-fit: contain;
 }
+.remove:hover{
+    cursor: pointer;
+    color: black;
+}
 .total-price{
     display: flex;
     justify-content: flex-end;

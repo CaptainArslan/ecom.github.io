@@ -53,11 +53,12 @@
                         <div class="form-btn">
                             <span >Conact Us</span>
                         </div>
-                        <form action="#" id="RegForm">
-                            <input type="text" placeholder="User Name">
-                            <input type="email" placeholder="Email">
+                        <form action="" method="POST" id="RegForm">
+                            <input type="text" name="txt_name" placeholder="User Name" required>
+                            <input type="email" name="txt_email" placeholder="Email" required>
+                            <input type="text" name="subject" placeholder="Subject" required>
                             <!-- <input type="password" placeholder="Confirm Password"> -->
-                            <textarea name="message" id="" cols="35" rows="5" placeholder="Your Message"></textarea>
+                            <textarea name="message" id="" cols="35" rows="5" placeholder="Your Message" required></textarea>
                             <button type="submit" class="btn">Submit</button>
                         </form>
                     </div>

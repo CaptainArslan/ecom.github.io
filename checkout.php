@@ -31,7 +31,7 @@ include("dbcon.php");
             if ($user_count > 0) {
                 while ($user_db_data = mysqli_fetch_array($check_user)) {
 
-            ?>
+    ?>
                     <form action="" method="POST">
                         <div class="row">
                             <div class="col-2">
@@ -184,7 +184,7 @@ include("dbcon.php");
                                 Order</button>
                         </div>
                     </form>
-            <?php
+    <?php
                 }
             }
         } else {
@@ -214,33 +214,68 @@ include("dbcon.php");
         $zip = $_POST['user_zip'];
 
         foreach ($_SESSION["shopping_cart"] as $product) {
+
+            $pro_code = $product["product_code"];
             $pro_name = $product["product_name"];
             $total_quantity = $product["product_quantity"];
             $total_price = ($product["product_price"] * $product["product_quantity"]);
             $total_tax = ($product["product_tax"] * $product["product_quantity"]);
             $grand_total = $total_price + $total_tax;
             $image  = $product["product_image"];
-            $orderquery = mysqli_query($con, "INSERT INTO `orders`(`date_time`, `user_id`, `product_name`, `product_img`, `product_quantity`,
+
+            $orderquery = mysqli_query($con, "INSERT INTO `orders`(`date_time`,`product_code`, `user_id`, `product_name`, `product_img`, `product_quantity`,
              `product_price`, `product_tax`, `grand_total`, `user_address`, `user_city`, `user_zip`, `user_state`) VALUES
-             ('$date','$user_id','$pro_name','$image','$total_quantity','$total_price','$total_tax','$grand_total','$address'
+             ('$date','$pro_code','$user_id','$pro_name','$image','$total_quantity','$total_price','$total_tax','$grand_total','$address'
              ,'$city','$zip','$state')");
 
             if (!$orderquery) {
                 $order = false;
                 break;
+            } else {
+                
+
+                $order_tbl_products_quantity = mysqli_query($con, "SELECT `product_quantity` FROM `products` WHERE `product_code` = '$pro_code'");
+                $pro = mysqli_fetch_assoc($order_tbl_products_quantity);
+                $product_quantity = $pro['product_quantity'];
+                // echo "Products Quantity = ".$product_quantity;
+                // echo "<br>";
+                $order_quantity = $product['product_quantity'];
+                // echo "Orders Quantity = ".$order_quantity;
+                // echo "<br>";
+
+                $update_quantity = $product_quantity - $order_quantity;
+                // echo "Total Quantity = ".$update_quantity;
+                // echo "<br>";
+                // Update Quantity
+                $update = mysqli_query($con, "UPDATE `products` SET `product_quantity`='$update_quantity' WHERE `product_code` = '$pro_code'");
             }
         }
+
         if ($order == true) {
+
+            $to_email = "mughalarslan996@gmail.com";
+            $subject = "Simple Email Test via PHP";
+            $body = "Hi, This is test email send by PHP Script";
+            $headers = "From: arslan031776@gmail.com";
+
+            if (mail($to_email, $subject, $body, $headers)) {
+                echo "Email successfully sent to $to_email...";
+            } else {
+                echo "Email sending failed...";
+            }
+
             unset($_SESSION['shopping_cart']);
             echo '<script>
            swal({
             title: "Great News!",
             text: "Your Order has been placed successfully",
             icon: "success",
-           }).then(function() {
-           window.location.href = "index.php";
-           });
+           })
            </script>';
+
+        //    .then(function() {
+        //     location.reload();
+        //     });
         } else {
             echo '<script>
            swal({

@@ -12,7 +12,8 @@ if (isset($_POST['action']) && $_POST['action'] == "remove") {
                         text: "Product is removed from Cart!",
                         icon: "warning",
                     }).then(function() {
-                        window.location.href = "addtocart.php";
+                        // window.location.href = "addtocart.php";
+                        location.reload();
                     });
                 </script>
 <?php
