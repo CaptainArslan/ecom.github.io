@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <link rel="shortcut icon" type="image" href="img/logos/logo-white.png">
-    <script src="js/sweetalert_plugin.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script src="js/jquery-2.1.1.js"></script>
     <title></title>
     <link rel="stylesheet" href="css/header.css">
@@ -69,7 +70,7 @@
 
             </div>
             <div class="userimage ">
-            <img src="img/icons/usericon.png" onclick="document.getElementById('id01').style.display='block'" alt="cart image" width="25px" height="25px" margin="10px">
+                <img src="img/icons/usericon.png" onclick="document.getElementById('id01').style.display='block'" alt="cart image" width="25px" height="25px" margin="10px">
                 <p>
                     <?php if (isset($_SESSION['user'])) {
                         echo $_SESSION['user'];
@@ -97,8 +98,8 @@
     </div>
 
 
- <!-- Prolile modal -->
- <div id="id01" class="modal">
+    <!-- Prolile modal -->
+    <div id="id01" class="modal">
         <div class="card-container">
             <div class="upper-container">
                 <div class="image-container">
@@ -123,19 +124,35 @@
         </div>
     </div>
 
-    <script>
-        var modal = document.getElementById('id01');
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
+
 
 </body>
-<!-- js for toggle menu -->
 <script>
+    // Header position fixed on scroll
+    $(window).scroll(function() {
+        var scroll = $(window).scrollTop();
+
+        //>=, not <=
+        if (scroll >= 20) {
+            //clearHeader, not clearheader - caps H
+            $(".header").addClass("sticky");
+        } else {
+            $(".header").removeClass("sticky");
+        }
+    });
+
+    
+    // User Profile modal
+    var modal = document.getElementById('id01');
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    // js for toggle menu 
+
     var MenuItems = document.getElementById("MenuItems");
 
     MenuItems.style.maxHeight = "0px";
