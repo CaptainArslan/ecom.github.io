@@ -199,6 +199,7 @@ include("dbcon.php");
 
         $date = date("Y/m/d H:i:s");
         $email = $_POST['user_email'];
+        $username = $_POST['user_name'];
         $user_id = $_POST['user_id'];
         $address = $_POST['user_address'];
         $city = $_POST['user_city'];
@@ -240,6 +241,7 @@ include("dbcon.php");
                 // echo "<br>";
                 // Update Quantity
                 $update = mysqli_query($con, "UPDATE `products` SET `product_quantity`='$update_quantity' WHERE `product_code` = '$pro_code'");
+                
             }
         }
 
@@ -253,16 +255,14 @@ include("dbcon.php");
             title: "Great News!",
             text: "Your Order has been placed successfully",
             icon: "success",
-           }).then(function(){
-                location.reload();
-           });
+           }).then(function() {
+            location.reload();
+            });
            </script>';
 
 
 
-            //    .then(function() {
-            //     location.reload();
-            //     });
+               
         } else {
             echo '<script>
            swal({

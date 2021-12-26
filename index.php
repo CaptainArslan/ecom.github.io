@@ -11,22 +11,24 @@ include("cartprocess.php");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <link rel="shortcut icon" type="image" href="img/logos/logo-white.png">
     <title>Ecommerce Store</title>
     <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/fw/all.min.css">
+
     <!-- Jquery  -->
     <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/sweetalert_plugin.js"></script>
 
 </head>
 
 <body>
 
-    <!-- <div class="chat-person">
+    <div class="chat-person">
         <a href="https://capchatt.000webhostapp.com/" target="_blank" style="color: #fff;">
             <i class="fas fa-comment-alt"></i>
         </a>
-    </div> -->
+    </div> 
 
     <div onclick="topFunction()" id="totop" title="Go to top"><i class="fas fa-angle-up"></i></div>
     <?php
@@ -89,8 +91,9 @@ include("cartprocess.php");
 
             </div>
             <div class="userimage">
-                <img src="img/icons/usericon.png" onclick="document.getElementById('id01').style.display='block'" alt="cart image" width="25px" height="25px" margin="5px">
-
+                <a href="profilepage.php">
+                    <img src="img/icons/usericon.png" alt="cart image" width="25px" height="25px" margin="10px">
+                </a>
                 <p>
                     <?php if (isset($_SESSION['user'])) {
                         echo $_SESSION['user'];
@@ -342,7 +345,7 @@ include("cartprocess.php");
     ?>
 
     <!-- Prolile modal -->
-    <div id="id01" class="modal">
+    <!-- <div id="id01" class="modal">
         <div class="card-container">
             <div class="upper-container">
                 <div class="image-container">
@@ -358,15 +361,13 @@ include("cartprocess.php");
                             echo "User Name";
                         } ?>
                     </h3>
-                    <!-- <h4>Front-end Developer</h4> -->
                 </div>
                 <div>
                     <a href="profile.php?id=<?php  ?>" class="btn">Main Profile</a>
-                    <!-- <a href="logout.php" class="btn">Logout</a> -->
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 </body>
 <script>
     $(document).ready(function() {

@@ -8,18 +8,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <link rel="shortcut icon" type="image" href="img/logos/logo-white.png">
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="js/jquery-2.1.1.js"></script>
     <title></title>
     <link rel="stylesheet" href="css/header.css">
+    <link rel="stylesheet" href="css/fw/all.min.css">
+
+    <script src="js/sweetalert_plugin.js"></script>
+    <script src="js/jquery-2.1.1.js"></script>
 </head>
 
 <body>
-    <div class="chat-person">
-        <a href="https://capchatt.000webhostapp.com/" target="_blank" style="color: #fff;">
+    <a href="https://capchatt.000webhostapp.com/" target="_blank" style="color: #fff;">
+        <div class="chat-person">
             <i class="fas fa-comment-alt"></i>
-        </a>
-    </div>
+        </div>
+    </a>
     <?php
     include("cartprocess.php");
     ?>
@@ -70,7 +72,9 @@
 
             </div>
             <div class="userimage ">
-                <img src="img/icons/usericon.png" onclick="document.getElementById('id01').style.display='block'" alt="cart image" width="25px" height="25px" margin="10px">
+                <a href="profilepage.php">
+                    <img src="img/icons/usericon.png" alt="cart image" width="25px" height="25px" margin="10px">
+                </a>
                 <p>
                     <?php if (isset($_SESSION['user'])) {
                         echo $_SESSION['user'];
@@ -79,27 +83,12 @@
                     } ?>
                 </p>
             </div>
-            <!-- Navigation bar below text and images -->
-            <!-- <div class="row">
-                <div class="col-2">
-                    <h1>Lorem ipsum dolor <br> elit A, voluptatum?</h1>
-                    <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Asperiores ad quibusdam earum ut
-                        delectus
-                        totam suscipit quis in dicta architecto autem assumenda ipsam aut illum tempora quia, laborum
-                        fugiat. Porro sequi voluptate labore. Ducimus?</p>
-                    <a href="" class="btn">Expolre now</a>
-                </div>
-                <div class="col-2">
-
-                    <img src="img/image1.png" alt="sport image">
-                </div>
-            </div> -->
         </div>
     </div>
 
 
     <!-- Prolile modal -->
-    <div id="id01" class="modal">
+    <!-- <div id="id01" class="modal">
         <div class="card-container">
             <div class="upper-container">
                 <div class="image-container">
@@ -114,15 +103,13 @@
                         } else {
                             echo "User Name";
                         } ?></h3>
-                    <!-- <h4>Front-end Developer</h4> -->
                 </div>
                 <div>
                     <a href="profile.php?id=<?php  ?>" class="btn">Main Profile</a>
-                    <!-- <a href="logout.php" class="btn">Logout</a> -->
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
 
 
 
@@ -142,14 +129,14 @@
     });
 
     
-    // User Profile modal
-    var modal = document.getElementById('id01');
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
+    // // User Profile modal
+    // var modal = document.getElementById('id01');
+    // // When the user clicks anywhere outside of the modal, close it
+    // window.onclick = function(event) {
+    //     if (event.target == modal) {
+    //         modal.style.display = "none";
+    //     }
+    // }
 
     // js for toggle menu 
 

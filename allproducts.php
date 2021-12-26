@@ -6,8 +6,6 @@ include("header.php");
 
 <head>
     <link rel="stylesheet" href="css/allproduct.css">
-    <script src="js/jquery-2.1.1.js"></script>
-
 </head>
 
 <body>
@@ -84,12 +82,12 @@ include("header.php");
             }
             ?>
         </div>
-    <!-- Modal -->
-    <form action="" method="post">
-        <div class="product_modal" id="product_modal">
-            
-        </div>
-    </form>
+        <!-- Modal -->
+        <form action="" method="post">
+            <div class="product_modal" id="product_modal">
+
+            </div>
+        </form>
         <!-- Page Number -->
 
         <?php
@@ -132,20 +130,11 @@ include("header.php");
                 <?php
                 }
                 ?>
-                <!-- Next Page button Code Start End -->
-                <!-- <a href=""><span>&#8594</span></a> -->
             </div>
         <?php
         }
         //Paggination Code End
         ?>
-        <!-- <div class="page-btn">
-            <a href=""><span>1</span></a>
-            <a href=""><span>2</span></a>
-            <a href=""><span>3</span></a>
-            <a href=""><span>4</span></a>
-            <a href=""><span>&#8594</span></a>
-        </div> -->
     </div>
     <script>
         $(document).ready(function() {
@@ -163,19 +152,14 @@ include("header.php");
                             alert("Error Occured While Opening Quick view");
                             $('#product_modal').hide();
                         } else {
-
-                            // alert(response);
-                            // db_response = JSON.parse(response);
                             $('#product_modal').show();
                             $('#product_modal').html(response);
-                            // alert(response);
                         }
                     }
                 });
             });
         });
     </script>
-    <script src="js/js.js"></script>
 </body>
 <?php
 include("footer.php");
