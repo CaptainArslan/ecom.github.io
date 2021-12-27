@@ -46,7 +46,7 @@
                         <?php
                         } else {
                         ?>
-                            <li class="logout_btn"><a href="logout.php">Logout</a></li>
+                            <li class="logout_btn"><a href="logout.php" onclick="return confirm('Are you Sure');">Logout</a></li>
                         <?php
                         }
 
@@ -73,7 +73,8 @@
             </div>
             <div class="userimage ">
                 <a href="profilepage.php">
-                    <img src="img/icons/usericon.png" alt="cart image" width="25px" height="25px" margin="10px">
+                    <!-- <img src="img/icons/usericon.png" alt="cart image" width="25px" height="25px" margin="10px"> -->
+                    <i class="fas fa-user-circle" style="font-size: 24px;"></i>
                 </a>
                 <p>
                     <?php if (isset($_SESSION['user'])) {

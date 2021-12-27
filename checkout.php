@@ -14,7 +14,7 @@ include("dbcon.php");
 <body>
     <?php
     if (isset($_SESSION['shopping_cart'])) {
-        if (isset($_SESSION['user'])) {
+        if (isset($_SESSION['email'])) {
             $user_email = $_SESSION['email'];
 
             $check_user  = mysqli_query($con, "SELECT * FROM `user` where `user_email` = '$user_email'");

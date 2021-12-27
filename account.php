@@ -1,6 +1,9 @@
 <?php 
 include("header.php");
 include("dbcon.php");
+if(isset($_SESSION['user_id'])){
+    header("location: index.php ");
+}
 ?>
 
 <!DOCTYPE html>
@@ -14,9 +17,7 @@ include("dbcon.php");
     <?php
     include("totop.php");
     ?>
-
     <!-- Account Page -->
-
     <div class="account-page">
         <div class="container">
             <div class="row">
@@ -48,6 +49,9 @@ include("dbcon.php");
 
                                 $db_pass = $db_data['user_password'];
 
+                                $_SESSION['user_id'] = $db_data['user_id'];
+                                // var_dump($_SESSION['user_id']);
+                                // exit;
                                 $_SESSION['user'] = $db_data['user_name'];
 
                                 $_SESSION['email'] = $db_data['user_email'];
