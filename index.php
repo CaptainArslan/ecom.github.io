@@ -167,7 +167,7 @@ include("cartprocess.php");
         <h2 class="title">Featured Products</h2>
         <div class="row">
             <?php
-            $query = "SELECT * FROM `products` where `product_quantity` >= 1 order by product_id ASC LIMIT 4";
+            $query = "SELECT * FROM `products` where `product_quantity` >= 0 order by product_id ASC LIMIT 4";
             $result = mysqli_query($con, $query);
 
             $num  = mysqli_num_rows($result);

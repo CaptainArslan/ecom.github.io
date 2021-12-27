@@ -31,7 +31,7 @@ include("dbcon.php");
                                     <div class="input-container">
                                         <h3>Billing</h3>
 
-                                        <input type="text" name="user_id" value="<?php echo $user_db_data['user_id']; ?>">
+                                        <input type="hidden" name="user_id" value="<?php echo $user_db_data['user_id']; ?>">
 
                                         <!-- <label for="">User ID</label>
                                         <input type="text" name="" id="" placeholder="M Arslan" title="username" value="<?php echo $user_db_data['user_id']; ?>" > -->
@@ -205,6 +205,7 @@ include("dbcon.php");
         $city = $_POST['user_city'];
         $state = $_POST['user_state'];
         $zip = $_POST['user_zip'];
+        $order_id = rand();
 
         foreach ($_SESSION["shopping_cart"] as $product) {
 
@@ -215,10 +216,11 @@ include("dbcon.php");
             $total_tax = ($product["product_tax"] * $product["product_quantity"]);
             $grand_total = $total_price + $total_tax;
             $image  = $product["product_image"];
+            
 
-            $orderquery = mysqli_query($con, "INSERT INTO `orders`(`date_time`,`product_code`, `user_id`, `product_name`, `product_img`, `product_quantity`,
+            $orderquery = mysqli_query($con, "INSERT INTO `orders`(`date_time`,`order_id`,`product_code`, `user_id`, `product_name`, `product_img`, `product_quantity`,
              `product_price`, `product_tax`, `grand_total`, `user_address`, `user_city`, `user_zip`, `user_state`) VALUES
-             ('$date','$pro_code','$user_id','$pro_name','$image','$total_quantity','$total_price','$total_tax','$grand_total','$address'
+             ('$date','$order_id','$pro_code','$user_id','$pro_name','$image','$total_quantity','$total_price','$total_tax','$grand_total','$address'
              ,'$city','$zip','$state')");
 
             if (!$orderquery) {
@@ -241,7 +243,6 @@ include("dbcon.php");
                 // echo "<br>";
                 // Update Quantity
                 $update = mysqli_query($con, "UPDATE `products` SET `product_quantity`='$update_quantity' WHERE `product_code` = '$pro_code'");
-                
             }
         }
 
@@ -259,15 +260,11 @@ include("dbcon.php");
             location.reload();
             });
            </script>';
-
-
-
-               
         } else {
             echo '<script>
            swal({
-            title: "Error Occur while order placement",
-            text: "You clicked the button!",
+            title: "Error ",
+            text: "Error Occured While order placement",
             icon: "warning",
            });
            </script>';

@@ -47,16 +47,16 @@ include("header.php");
                 // echo $filter;
 
                 if ($filter == 1) {
-                    $queryrating = "SELECT * FROM `products` order by product_rating DESC LIMIT {$offset}, {$limit}";
+                    $queryrating = "SELECT * FROM `products` where `product_quantity` >= 0 order by product_rating DESC LIMIT {$offset}, {$limit}";
                     $result = mysqli_query($con, $queryrating);
                 } else if ($filter == 2) {
 
-                    $queryprice = "SELECT * FROM `products` order by product_price ASC LIMIT {$offset}, {$limit}";
+                    $queryprice = "SELECT * FROM `products` where `product_quantity` >= 0 order by product_price ASC LIMIT {$offset}, {$limit}";
                     $result = mysqli_query($con, $queryprice);
                 }
             } else {
                 $filter = 0;
-                $query = "SELECT * FROM `products` order by product_id ASC LIMIT {$offset}, {$limit} ";
+                $query = "SELECT * FROM `products` where `product_quantity` >= 0 order by product_id ASC LIMIT {$offset}, {$limit} ";
                 $result = mysqli_query($con, $query);
             }
 
