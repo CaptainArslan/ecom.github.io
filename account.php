@@ -1,6 +1,6 @@
 <?php 
 include("header.php");
-include("dbcon.php");
+// include("dbcon.php");
 if(isset($_SESSION['user_id'])){
     header("location: index.php ");
 }
@@ -131,16 +131,11 @@ if(isset($_SESSION['user_id'])){
 
                             $pass = password_hash($user_password, PASSWORD_BCRYPT);
                             $cpass = password_hash($user_compassword, PASSWORD_BCRYPT);
+                            $user_status = 'U';
 
                             $emailquery = "SELECT * FROM `user` WHERE `user_email` = '$user_email'";
                             $emailresult = mysqli_query($con, $emailquery);
                             $emailcount = mysqli_num_rows($emailresult);
-
-
-                            $phonequery = "SELECT * FROM `user` WHERE `user_phone` = '$user_phone'";
-                            $phoneresult = mysqli_query($con, $phonequery);
-                            $phonecount = mysqli_num_rows($phoneresult);
-
 
 
 
@@ -149,25 +144,36 @@ if(isset($_SESSION['user_id'])){
                                 '<script>
                                     alert("Email! Already Exist* Please Login to Your Account");
                                 </script>';
-                            } else if ($phonecount > 0) {
-                                echo
-                                '<script>
-                                    alert("Phone Number! Already Exist");
-                                </script>';
                             } else {
 
                                 if ($user_password === $user_compassword) {
-                                    $insertquery = "INSERT INTO `user`(`date`, `user_name`, `user_email`, `user_phone`, `user_password`, `user_confirm_password`) 
-                                        VALUES ('$date','$user_name','$user_email','$user_phone','$pass','$cpass')";
+                                    $insertquery = "INSERT INTO `user`(`date`, `user_name`, `user_email`, `user_phone`, `user_password`, `user_confirm_password`, `user_role`) 
+                                        VALUES ('$date','$user_name','$user_email','$user_phone','$pass','$cpass','$user_status')";
 
                                     $queryfire = mysqli_query($con, $insertquery);
-                                    echo '<script>
+                                    if($queryfire){
+                                        echo '<script>
                                         swal({
                                             title: "Great News!",
                                             text: "Your Are Registered Successfully",
                                             icon: "success",
+                                        }).then(function(){
+                                            window.location.href = "index.php";
                                         });
                                         </script>';
+                                    }
+                                    else{
+                                        echo '<script>
+                                        swal({
+                                            title: "Error Occur",
+                                            text: "Not Registered",
+                                            icon: "warning",
+                                        }).then(function(){
+                                            window.location.href = "index.php";
+                                        });
+                                        </script>';
+                                    }
+                                    
                                 } else {
                                         echo '<script>
                                         swal({

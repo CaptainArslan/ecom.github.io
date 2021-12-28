@@ -10,7 +10,7 @@ include("header.php");
 
 <body>
     <?php
-    include("dbcon.php");
+    // include("dbcon.php");
     include("totop.php");
     ?>
 

@@ -1,6 +1,6 @@
 <?php
-include("dbcon.php");
-include("cartprocess.php");
+// include_once("dbcon.php");
+include_once("cartprocess.php");
 // include("totop.php");
 ?>
 <!DOCTYPE html>

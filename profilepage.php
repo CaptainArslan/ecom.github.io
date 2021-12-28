@@ -1,5 +1,5 @@
 <?php
-include("dbcon.php");
+// include("dbcon.php");
 include("header.php");
 // include("totop.php");
     if (!isset($_SESSION['user'])) {
