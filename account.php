@@ -1,6 +1,6 @@
 <?php 
 include("header.php");
-// include("dbcon.php");
+include("dbcon.php");
 if(isset($_SESSION['user_id'])){
     header("location: index.php ");
 }
@@ -75,10 +75,14 @@ if(isset($_SESSION['user_id'])){
                                         
                                     }
                                     // alert("Congratulation! you are logged in successfully");
-                                    echo
-                                    '<script>
-                                    window.location.href = "account.php";
-                                </script>';
+                                    echo '<script>
+                                    swal({
+                                        title: "Logged In Successfully",
+                                        icon: "success",
+                                    }).then(function(){
+                                        window.location.href = "index.php";
+                                    });
+                                    </script>';
                                 }
                                 else 
                                 {
@@ -126,32 +130,31 @@ if(isset($_SESSION['user_id'])){
                             $user_phone = mysqli_real_escape_string($con, $_POST['txt_phone']);
                             $user_password = mysqli_real_escape_string($con, $_POST['txt_password']);
                             $user_compassword = mysqli_real_escape_string($con, $_POST['txt_confirm_password']);
-                            $date = date("Y-m-d h:i:sa");
-
+                            $date = date("Y-m-d h:i:s");
+                            echo $date;
 
                             $pass = password_hash($user_password, PASSWORD_BCRYPT);
                             $cpass = password_hash($user_compassword, PASSWORD_BCRYPT);
-                            $user_status = 'U';
 
                             $emailquery = "SELECT * FROM `user` WHERE `user_email` = '$user_email'";
                             $emailresult = mysqli_query($con, $emailquery);
                             $emailcount = mysqli_num_rows($emailresult);
-
-
+                            $user_role = "U";
 
                             if ($emailcount > 0) {
-                                echo
-                                '<script>
-                                    alert("Email! Already Exist* Please Login to Your Account");
+                                echo '<script>
+                                swal({
+                                    title: "Email Error",
+                                    text: "Email Already Exist",
+                                    icon: "warning",
+                                });
                                 </script>';
-                            } else {
-
-                                if ($user_password === $user_compassword) {
-                                    $insertquery = "INSERT INTO `user`(`date`, `user_name`, `user_email`, `user_phone`, `user_password`, `user_confirm_password`, `user_role`) 
-                                        VALUES ('$date','$user_name','$user_email','$user_phone','$pass','$cpass','$user_status')";
-
-                                    $queryfire = mysqli_query($con, $insertquery);
-                                    if($queryfire){
+                            } else 
+                            {
+                                if ($user_password === $user_compassword) 
+                                {
+                                    $queryfire = mysqli_query($con, "INSERT INTO `user`( `date`, `user_name`, `user_email`, `user_phone`, `user_password`, `user_confirm_password`,`user_role`) VALUES ('$date','$user_name','$user_email','$user_phone','$pass','$cpass','$user_role')");
+                                    if($queryfire == true){
                                         echo '<script>
                                         swal({
                                             title: "Great News!",
@@ -165,16 +168,16 @@ if(isset($_SESSION['user_id'])){
                                     else{
                                         echo '<script>
                                         swal({
-                                            title: "Error Occur",
-                                            text: "Not Registered",
+                                            title: "Registeration Error",
+                                            text: "Error Occured While Registeration",
                                             icon: "warning",
-                                        }).then(function(){
-                                            window.location.href = "index.php";
                                         });
                                         </script>';
                                     }
                                     
-                                } else {
+                                } 
+                                else 
+                                {
                                         echo '<script>
                                         swal({
                                             title: "Error",

@@ -10,7 +10,7 @@ include("header.php");
 
 <body>
     <?php
-    // include("dbcon.php");
+    include("dbcon.php");
     include("totop.php");
     ?>
 
@@ -47,16 +47,16 @@ include("header.php");
                 // echo $filter;
 
                 if ($filter == 1) {
-                    $queryrating = "SELECT * FROM `products` where `product_quantity` >= 0 order by product_rating DESC LIMIT {$offset}, {$limit}";
+                    $queryrating = "SELECT * FROM `products` where `product_quantity` >= 1 order by product_rating DESC LIMIT {$offset}, {$limit}";
                     $result = mysqli_query($con, $queryrating);
                 } else if ($filter == 2) {
 
-                    $queryprice = "SELECT * FROM `products` where `product_quantity` >= 0 order by product_price ASC LIMIT {$offset}, {$limit}";
+                    $queryprice = "SELECT * FROM `products` where `product_quantity` >= 1 order by product_price ASC LIMIT {$offset}, {$limit}";
                     $result = mysqli_query($con, $queryprice);
                 }
             } else {
                 $filter = 0;
-                $query = "SELECT * FROM `products` where `product_quantity` >= 0 order by product_id ASC LIMIT {$offset}, {$limit} ";
+                $query = "SELECT * FROM `products` where `product_quantity` >= 1 order by product_id ASC LIMIT {$offset}, {$limit} ";
                 $result = mysqli_query($con, $query);
             }
 
@@ -70,7 +70,7 @@ include("header.php");
                             <img src="img\product_img\<?php echo  $row['product_image']; ?>" alt="Product Image" class="product_image" id="<?php echo  $row['product_code']; ?>">
                             <h4><?php echo $row['product_name']; ?></h4>
                             <div class="rating">
-                                <i class="fa fa-star"><?php echo $row['product_rating']; ?></i>
+                                <i class="fa fa-star"></i><?php echo $row['product_rating']; ?>
                             </div>
                             <p> $<?php echo number_format($row['product_price'], 2); ?></p>
                             <button type="submit" class="btn">Add To Cart</button>

@@ -1,6 +1,6 @@
 <?php
-// include_once("dbcon.php");
-include_once("cartprocess.php");
+include("dbcon.php");
+include("cartprocess.php");
 // include("totop.php");
 ?>
 <!DOCTYPE html>
@@ -11,6 +11,7 @@ include_once("cartprocess.php");
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <link rel="shortcut icon" type="image" href="img/logos/logo-white.png">
     <title>Ecommerce Store</title>
     <link rel="stylesheet" href="css/index.css">
@@ -19,7 +20,6 @@ include_once("cartprocess.php");
     <!-- Jquery  -->
     <script src="js/jquery-2.1.1.js"></script>
     <script src="js/sweetalert_plugin.js"></script>
-
 </head>
 
 <body>
@@ -28,7 +28,7 @@ include_once("cartprocess.php");
         <a href="https://capchatt.000webhostapp.com/" target="_blank" style="color: #fff;">
             <i class="fas fa-comment-alt"></i>
         </a>
-    </div> 
+    </div>
 
     <div onclick="topFunction()" id="totop" title="Go to top"><i class="fas fa-angle-up"></i></div>
     <?php
@@ -167,7 +167,7 @@ include_once("cartprocess.php");
         <h2 class="title">Featured Products</h2>
         <div class="row">
             <?php
-            $query = "SELECT * FROM `products` where `product_quantity` >= 0 order by product_id ASC LIMIT 4";
+            $query = "SELECT * FROM `products` where `product_quantity` >= 1 order by product_id ASC LIMIT 4";
             $result = mysqli_query($con, $query);
 
             $num  = mysqli_num_rows($result);
@@ -180,7 +180,7 @@ include_once("cartprocess.php");
                             <img src="img\product_img\<?php echo  $row['product_image']; ?>" alt="Product Image" class="product_image" id="<?php echo  $row['product_code']; ?>">
                             <h4><?php echo $row['product_name']; ?></h4>
                             <div class="rating">
-                                <i class="fa fa-star"><?php echo $row['product_rating']; ?></i>
+                                <i class="fa fa-star"></i><?php echo $row['product_rating']; ?>
                             </div>
                             <p> $<?php echo number_format($row['product_price'], 2); ?></p>
                             <button type="submit" class="btn">Add To Cart</button>
@@ -203,7 +203,7 @@ include_once("cartprocess.php");
         <h2 class="title">Latest Products</h2>
         <div class="row">
             <?php
-            $query = "SELECT * FROM `products` order by product_id DESC LIMIT 8";
+            $query = "SELECT * FROM `products` where `product_quantity` >= 1 order by product_id DESC LIMIT 8";
             $result = mysqli_query($con, $query);
 
             $num  = mysqli_num_rows($result);
@@ -216,7 +216,7 @@ include_once("cartprocess.php");
                             <img src="img\product_img\<?php echo  $row['product_image']; ?>" alt="Product Image" class="product_image" id="<?php echo  $row['product_code']; ?>">
                             <h4><?php echo $row['product_name']; ?></h4>
                             <div class="rating">
-                                <i class="fa fa-star"><?php echo $row['product_rating']; ?></i>
+                                <i class="fa fa-star"></i><?php echo $row['product_rating']; ?>
                             </div>
                             <p> $<?php echo number_format($row['product_price'], 2); ?></p>
                             <button type="submit" class="btn">Add To Cart</button>
