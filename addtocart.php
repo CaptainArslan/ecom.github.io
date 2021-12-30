@@ -38,16 +38,7 @@ if (isset($_POST['action']) && $_POST['action'] == "changequantity") {
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="shortcut icon" type="image" href="img/logos/logo-white.png">
-    <title>Cart Page | red store cart </title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
     <link rel="stylesheet" href="css/addtocart.css">
-
-    <script src="js/sweetalert_plugin.js"></script>
 </head>
 
 <body>
@@ -112,7 +103,7 @@ if (isset($_POST['action']) && $_POST['action'] == "changequantity") {
                             </form>
                         </td>
                         <!-- <td> <input type="number" value="0"> </td> -->
-                        <td>$<?php echo $unit_price = ($product["product_price"] * $product["product_quantity"]) ?></td>
+                        <td>Rs.<?php echo $unit_price = ($product["product_price"] * $product["product_quantity"]) ?></td>
                     </tr>
                 <?php
                     $total_quantity += ($product["product_quantity"]);
@@ -132,7 +123,7 @@ if (isset($_POST['action']) && $_POST['action'] == "changequantity") {
                 <table>
                     <tr>
                         <td>Subtotal</td>
-                        <td>$<?php
+                        <td>Rs.<?php
                                 if (isset($_SESSION["shopping_cart"])) {
 
                                     echo $total_price;
@@ -144,7 +135,7 @@ if (isset($_POST['action']) && $_POST['action'] == "changequantity") {
                     </tr>
                     <tr>
                         <td>Tax</td>
-                        <td>$<?php
+                        <td>Rs.<?php
                                 if (isset($_SESSION["shopping_cart"])) {
                                     echo $total_tax;
                                 } else {
@@ -155,7 +146,7 @@ if (isset($_POST['action']) && $_POST['action'] == "changequantity") {
                     </tr>
                     <tr>
                         <td>Grand Total</td>
-                        <td>$<?php
+                        <td>Rs.<?php
                                 if (isset($_SESSION["shopping_cart"])) {
                                     echo $grand_total;
                                 } else {
@@ -175,7 +166,7 @@ if (isset($_POST['action']) && $_POST['action'] == "changequantity") {
             <?php
             if (isset($_SESSION["shopping_cart"])) {
             ?>
-                <a href="index.php" class="checkout_btn">Continue Shopping</a>
+                <a href="index.php" class="checkout_btn btn">Continue Shopping</a>
 
                 <form action="checkout.php?code = <?php echo $product["product_code"]; ?>" method="POST">
                     <button class="checkout_btn" type="submit" name="checkoutbutton"> Continue To Proceed </button>

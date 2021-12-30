@@ -1,5 +1,5 @@
 <?php
-include("dbcon.php");
+// include("dbcon.php");
 include("header.php");
 // include("totop.php");
     if (!isset($_SESSION['user'])) {
@@ -14,3 +14,12 @@ include("header.php");
         </script>';
     } 
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Profile page | Red Store</title>
+</head>
+<body>
+    
+</body>
+</html>
