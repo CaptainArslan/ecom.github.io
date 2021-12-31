@@ -93,7 +93,7 @@
                         </td>
                         <td style="padding:15px;">
                             <div class="image" style="height: 50px; width: 50px; object-fit: contain;">
-                                <img src="img\product_img\$product["product_image"]" alt="product image" style="width: 100%;">
+                                <img src="img\product_img\"'.$product['product_image'].'" alt="product image" style="width: 100%;">
                             </div>
                         </td>
                     </tr>';
@@ -102,7 +102,7 @@
     $item .= '
              <tr>
                 <td colspan="2" style="padding:15px;">
-                    <p style="margin:0;padding:10px;border:solid 1px #ddd;">
+                    <p style="margin:0;padding:10px;">
                         <span style="display:block;font-size:13px;font-weight:normal;">Total Quantity = ' . $total_quantity . ' </span> 
                         <span style="display:block;font-size:13px;font-weight:normal;">Total Tax = ' . $total_tax . ' </span>
                         <span style="display:block;font-size:13px;font-weight:normal;">Grand Total = ' . $grand_total . '</span>

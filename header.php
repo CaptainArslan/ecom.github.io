@@ -117,17 +117,17 @@
 </body>
 <script>
     // Header position fixed on scroll
-    $(window).scroll(function() {
-        var scroll = $(window).scrollTop();
+    // $(window).scroll(function() {
+    //     var scroll = $(window).scrollTop();
 
-        //>=, not <=
-        if (scroll >= 20) {
-            //clearHeader, not clearheader - caps H
-            $(".header").addClass("sticky");
-        } else {
-            $(".header").removeClass("sticky");
-        }
-    });
+    //     //>=, not <=
+    //     if (scroll >= 20) {
+    //         //clearHeader, not clearheader - caps H
+    //         $(".header").addClass("sticky");
+    //     } else {
+    //         $(".header").removeClass("sticky");
+    //     }
+    // });
 
     
     // // User Profile modal
