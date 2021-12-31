@@ -4,6 +4,9 @@
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
+/* ::-webkit-scrollbar{
+    width: 6px;
+} */
 .navbar{
     display: flex;
     align-items: center;
@@ -25,6 +28,9 @@ nav ul li{
 a{
     text-decoration: none;
     color: #555;
+}
+p{
+    font-family: 'Poppins', sans-serif;
 }
 .cart_div {
 	font-size: 10px;
