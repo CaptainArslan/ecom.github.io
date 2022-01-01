@@ -10,7 +10,7 @@ if (isset($_POST['action']) && $_POST['action'] == "remove") {
                     swal({
                         title: "Product Removed!",
                         text: "Product is removed from Cart!",
-                        icon: "warning",
+                        icon: "success",
                     }).then(function() {
                         // window.location.href = "addtocart.php";
                         location.reload();

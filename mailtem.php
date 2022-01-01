@@ -9,6 +9,7 @@
 
 <body>
     <?php
+    // Detail Variables
     $id = '';
     $name = '';
     $email = '';
@@ -18,23 +19,34 @@
     $zip = '';
     $state = '';
     $item = '';
+    //Order Price Variables
+    $total_price = 0;
+    $total_tax = 0;
+    $grand_total = 0;
+    $unit_price = 0;
+    $total_quantity = 0;
+
     if (isset($_SESSION['shopping_cart'])) {
         $user_email = $_SESSION['email'];
         $check_user  = mysqli_query($con, "SELECT * FROM `user` where `user_email` = '$user_email'");
         $row = mysqli_fetch_assoc($check_user);
+        // var_dump($row);
+        // exit;
         $id = $row['user_id'];
         $name = $row['user_name'];
         $email = $row['user_email'];
         $phone = $row['user_phone'];
-        $address = $row['user_address'];
+        // $address = $row['user_address'];
+        if($row['user_address'] != 'NULL')
+        {
+            $address = $row['user_address'];
+        }
+        else{
+            $address = 'You Didnt Upload Address';
+        }
         $city = $row['user_city'];
         $zip = $row['user_zip'];
         $state = $row['user_state'];
-        $total_price = 0;
-        $total_tax = 0;
-        $grand_total = 0;
-        $unit_price = 0;
-        $total_quantity = 0;
     }
     $item = '<table style="max-width:670px;margin:50px auto 10px;background-color:#fff;padding:50px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);-moz-box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24); border-top: solid 10px #ffd6d6;">
         <thead>
@@ -76,13 +88,14 @@
 
 
     if (isset($_SESSION["shopping_cart"])) {
+
         foreach ($_SESSION["shopping_cart"] as $product) {
             $total_quantity += $product["product_quantity"];
             $total_price += ($product["product_price"] * $product["product_quantity"]);
             $total_tax += ($product["product_tax"] * $product["product_quantity"]);
             $grand_total = $total_price + $total_tax;
 
-            // $img = $product["product_image"];
+             $img = $product["product_image"];
 
             $item .= '<tr style="padding:15px">
                         <td>
@@ -93,7 +106,7 @@
                         </td>
                         <td style="padding:15px;">
                             <div class="image" style="height: 50px; width: 50px; object-fit: contain;">
-                                <img src="img\product_img\"'.$product['product_image'].'" alt="product image" style="width: 100%;">
+                                <img src="img\product_img\/'.$product["product_image"].'" alt="product image" style="width: 100%;">
                             </div>
                         </td>
                     </tr>';

@@ -70,15 +70,9 @@ if(isset($_SESSION['user_id'])){
                                         setcookie('PasswordCookie',$password,time()+(86400*30));
 
                                         
-                                    }else
-                                    {
-                                        
                                     }
                                     // alert("Congratulation! you are logged in successfully");
-                                    echo
-                                    '<script>
-                                    window.reload()";
-                                </script>';
+                                    header('location: index.php');
                                 }
                                 else 
                                 {
