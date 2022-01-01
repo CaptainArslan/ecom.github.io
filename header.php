@@ -36,7 +36,7 @@
                     <ul id="MenuItems">
                         <li><a href="index.php">Home</a></li>
                         <li><a href="allproducts.php">Products</a></li>
-                        <li><a href="about.php">About</a></li>
+                        <!-- <li><a href="about.php">About</a></li> -->
                         <li><a href="contact.php">Contact</a></li>
                         <?php
 

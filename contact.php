@@ -1,7 +1,16 @@
 <?php
-    include("header.php");
-    include("totop.php");
-    ?>
+require_once 'includes/PHPMailer.php';
+require_once 'includes/Exception.php';
+require_once 'includes/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+
+include_once("header.php");
+include_once("totop.php");
+include_once("dbcon.php");
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,6 +20,67 @@
 </head>
 
 <body>
+<?php 
+        if(isset($_POST['submit_message'])){
+            $name = $_POST['user_name'];
+            $email = $_POST['user_email'];
+            $subject = $_POST['subject'];
+            $message = $_POST['message'];
+            $message_insert = mysqli_query($con, "INSERT INTO `contact_us`( `user_name`, `user_email`, `user_subject`, `user_message`) 
+            VALUES ('$name','$email','$subject','$message')");
+            if($message_insert){
+                $mail = new PHPMailer();
+                $mail->isSMTP();
+                $mail->Host = "smtp.gmail.com";
+                $mail->SMTPAuth  = "true";
+                $mail->SMTPSecure = "tls";
+                $mail->Port = 587;
+                $mail->Username = "arslan031776@gmail.com";
+                $mail->Password = "bcsf17r23A";
+                $mail->Subject = "This is php mailer email";
+                $mail->setFrom("arslan031776@gmail.com");
+                $mail->isHTML(true);
+                $mail->Body = $message;
+                $mail->addAddress('mughalarslan996@gmail.com');
+                if ($mail->send()) {
+                    echo '<script>
+                swal({
+                    title: "Great News!",
+                    text: "Your Order has been placed successfully",
+                    icon: "success",
+                });
+                </script>';
+                }
+                else{
+                    echo '<script>
+                    swal({
+                        title: "Email Error!",
+                        text: "Error Sending Failed",
+                        icon: "warning",
+                    });
+                    </script>';
+                }
+
+                echo '<script>
+                swal({
+                    title: "Great News!",
+                    text: "Your Order has been placed successfully",
+                    icon: "success",
+                });
+                </script>';
+            }
+            else
+            {
+                echo '<script>
+                swal({
+                    title: "Email Error!",
+                    text: "Error Sending Failed",
+                    icon: "warning",
+                });
+                </script>';
+            }
+        }
+?>
 
     <!-- Account Page -->
 
@@ -44,18 +114,21 @@
                 <div class="col-2">
                     <div class="form-container">
                         <div class="form-btn">
-                            <span >Conact Us</span>
+                            <span>Conact Us</span>
                         </div>
                         <form action="" method="POST" id="RegForm">
-                            <input type="text" name="txt_name" placeholder="User Name" required>
-                            <input type="email" name="txt_email" placeholder="Email" required>
+                            <input type="text" name="user_name" placeholder="User Name" required>
+                            <span style="color: red;font-size: 10px; position: absolute; margin-top: -8px; left: 0;"></span>
+                            <input type="email" name="user_email" placeholder="User Email" required>
+                            <span style="color: red;font-size: 10px; position: absolute; margin-top: -8px; left: 0;"></span>
                             <input type="text" name="subject" placeholder="Subject" required>
-                            <!-- <input type="password" placeholder="Confirm Password"> -->
+                            <span style="color: red;font-size: 10px; position: absolute; margin-top: -8px; left: 0;"></span>
                             <textarea name="message" id="" cols="35" rows="5" placeholder="Your Message" required></textarea>
-                            <button type="submit" class="btn">Submit</button>
+                            <span style="color: red;font-size: 10px; position: absolute; margin-top: -8px; left: 0;"></span>
+
+                            <button type="submit" name="submit_message" class="btn">Submit</button>
                         </form>
                     </div>
-                    
                 </div>
             </div>
         </div>
@@ -64,6 +137,6 @@
     <?php
     include("footer.php");
     ?>
-</body> 
+</body>
 
 </html>
