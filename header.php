@@ -70,20 +70,26 @@
                 </a>
                 <img src="img/icons/menu.png" alt="menu-icon" class="menu-icon" onclick="menutoggle()">
 
-            </div>
-            <div class="userimage ">
-                <a href="profilepage.php">
-                    <!-- <img src="img/icons/usericon.png" alt="cart image" width="25px" height="25px" margin="10px"> -->
-                    <i class="fas fa-user-circle" style="font-size: 24px;"></i>
-                </a>
-                <p>
-                    <?php if (isset($_SESSION['user'])) {
-                        echo $_SESSION['user'];
-                    } else {
-                        echo "";
-                    } ?>
-                </p>
-            </div>
+            </div><?php
+                    if (isset($_SESSION['email'])) {
+                    ?>
+                <div class="userimage ">
+                    <a href="profilepage.php">
+                        <!-- <img src="img/icons/usericon.png" alt="cart image" width="25px" height="25px" margin="10px"> -->
+                        <i class="fas fa-user-circle" style="font-size: 24px;"></i>
+                    </a>
+                    <p>
+                        <?php if (isset($_SESSION['user'])) {
+                            echo $_SESSION['user'];
+                        } else {
+                            echo "";
+                        } ?>
+                    </p>
+                </div>
+            <?php
+                    }
+            ?>
+
         </div>
     </div>
 
@@ -129,7 +135,7 @@
     //     }
     // });
 
-    
+
     // // User Profile modal
     // var modal = document.getElementById('id01');
     // // When the user clicks anywhere outside of the modal, close it

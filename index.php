@@ -90,19 +90,25 @@ include_once("cartprocess.php");
                 <img src="img/icons/menu.png" alt="menu-icon" class="menu-icon" onclick="menutoggle()">
 
             </div>
-            <div class="userimage">
-                <a href="profilepage.php">
-                    <!-- <img src="img/icons/usericon.png" alt="cart image" width="25px" height="25px" margin="10px"> -->
-                    <i class="fas fa-user-circle" style="font-size: 24px;"></i>
-                </a>
-                <p>
-                    <?php if (isset($_SESSION['user'])) {
-                        echo $_SESSION['user'];
-                    } else {
-                        echo "";
-                    } ?>
-                </p>
-            </div>
+            <?php
+                    if (isset($_SESSION['email'])) {
+                    ?>
+                <div class="userimage ">
+                    <a href="profilepage.php">
+                        <!-- <img src="img/icons/usericon.png" alt="cart image" width="25px" height="25px" margin="10px"> -->
+                        <i class="fas fa-user-circle" style="font-size: 24px;"></i>
+                    </a>
+                    <p>
+                        <?php if (isset($_SESSION['user'])) {
+                            echo $_SESSION['user'];
+                        } else {
+                            echo "";
+                        } ?>
+                    </p>
+                </div>
+            <?php
+                    }
+            ?>
             <!-- Navigation bar below text and images -->
             <div class="row">
                 <div class="col-2">
