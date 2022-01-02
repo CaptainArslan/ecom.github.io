@@ -15,9 +15,14 @@ include_once("cartprocess.php");
     <title>Ecommerce Store</title>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/fw/all.min.css">
-
+    
     <!-- Jquery  -->
-    <script src="js/jquery-2.1.1.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
+
+    <script src="js/jquery-3.js"></script>
+    <!-- <script src="js/jquery-2.1.1.js"></script> -->
     <script src="js/sweetalert_plugin.js"></script>
 
 </head>
@@ -272,8 +277,8 @@ include_once("cartprocess.php");
     <!-- Testimonial -->
     <div class="testtimonial">
         <div class="small_container">
-            <div class="row">
-                <div class="col-3">
+            <div class="row owl-carousel owl-theme">
+                <div class="col-3 ">
                     <i class="fa fa-quote-left"></i>
                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id autem voluptates hic ipsum aliquid
                         ullam pariatur corrupti obcaecati labore eaque.</p>
@@ -284,10 +289,10 @@ include_once("cartprocess.php");
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                     </div>
-                    <img src="img/userreviews/user-1.png" alt="user image and review">
+                    <img src="img/userreviews/user-1.png" style="width: 50px ; height: 50px; object-fit: contain;"  alt="user image and review">
                     <h3>User Name</h3>
                 </div>
-                <div class="col-3">
+                <div class="col-3 ">
                     <i class="fa fa-quote-left"></i>
                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id autem voluptates hic ipsum aliquid
                         ullam pariatur corrupti obcaecati labore eaque.</p>
@@ -298,10 +303,10 @@ include_once("cartprocess.php");
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                     </div>
-                    <img src="img/userreviews/user-2.png" alt="user image and review">
+                    <img src="img/userreviews/user-2.png" style="width: 50px ; height: 50px; object-fit: contain;" alt="user image and review">
                     <h3>User Name</h3>
                 </div>
-                <div class="col-3">
+                <div class="col-3 ">
                     <i class="fa fa-quote-left"></i>
                     <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id autem voluptates hic ipsum aliquid
                         ullam pariatur corrupti obcaecati labore eaque.</p>
@@ -312,7 +317,49 @@ include_once("cartprocess.php");
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                     </div>
-                    <img src="img/userreviews/user-3.png" alt="user image and review">
+                    <img src="img/userreviews/user-3.png" style="width: 50px ; height: 50px; object-fit: contain;" alt="user image and review">
+                    <h3>User Name</h3>
+                </div>
+                <div class="col-3 ">
+                    <i class="fa fa-quote-left"></i>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id autem voluptates hic ipsum aliquid
+                        ullam pariatur corrupti obcaecati labore eaque.</p>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half-alt"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <img src="img/userreviews/user-3.png" style="width: 50px ; height: 50px; object-fit: contain;" alt="user image and review">
+                    <h3>User Name</h3>
+                </div>
+                <div class="col-3 ">
+                    <i class="fa fa-quote-left"></i>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id autem voluptates hic ipsum aliquid
+                        ullam pariatur corrupti obcaecati labore eaque.</p>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half-alt"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <img src="img/userreviews/user-3.png" style="width: 50px ; height: 50px; object-fit: contain;" alt="user image and review">
+                    <h3>User Name</h3>
+                </div>
+                <div class="col-3 ">
+                    <i class="fa fa-quote-left"></i>
+                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Id autem voluptates hic ipsum aliquid
+                        ullam pariatur corrupti obcaecati labore eaque.</p>
+                    <div class="rating">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star-half-alt"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                    </div>
+                    <img src="img/userreviews/user-3.png" style="width: 50px ; height: 50px; object-fit: contain;" alt="user image and review">
                     <h3>User Name</h3>
                 </div>
             </div>
@@ -375,6 +422,7 @@ include_once("cartprocess.php");
             </div>
         </div>
     </div> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js" integrity="sha512-bPs7Ae6pVvhOSiIcyUClR7/q2OAsRiovw4vAkX+zJbw3ShAeeqezq50RIIcIURq7Oa20rW2n2q+fyXBNcU9lrw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </body>
 <script>
     $(document).ready(function() {
@@ -405,6 +453,22 @@ include_once("cartprocess.php");
                 }
             });
         });
+
+
+        $('.owl-carousel').owlCarousel({
+    loop:true,
+    autoplay:true,
+    margin:10,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:3
+        }
+    }
+})
+
     });
 </script>
 <script src="js/js.js"></script>
