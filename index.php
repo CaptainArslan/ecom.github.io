@@ -28,7 +28,7 @@ include_once("cartprocess.php");
         <a href="https://capchatt.000webhostapp.com/" target="_blank" style="color: #fff;">
             <i class="fas fa-comment-alt"></i>
         </a>
-    </div> 
+    </div>
 
     <div onclick="topFunction()" id="totop" title="Go to top"><i class="fas fa-angle-up"></i></div>
     <?php
@@ -91,8 +91,8 @@ include_once("cartprocess.php");
 
             </div>
             <?php
-                    if (isset($_SESSION['email'])) {
-                    ?>
+            if (isset($_SESSION['email'])) {
+            ?>
                 <div class="userimage ">
                     <a href="profilepage.php">
                         <!-- <img src="img/icons/usericon.png" alt="cart image" width="25px" height="25px" margin="10px"> -->
@@ -107,7 +107,7 @@ include_once("cartprocess.php");
                     </p>
                 </div>
             <?php
-                    }
+            }
             ?>
             <!-- Navigation bar below text and images -->
             <div class="row">
@@ -389,10 +389,13 @@ include_once("cartprocess.php");
                 },
                 success: function(response) {
                     if (response == "false") {
-                        alert("Error Occured While Opening Quick view");
+                        swal({
+                            title: "Error Occured!",
+                            text: "Error Occured while Opening Modal",
+                            icon: "warning",
+                        });
                         $('#product_modal').hide();
                     } else {
-
                         // alert(response);
                         // db_response = JSON.parse(response);
                         $('#product_modal').show();

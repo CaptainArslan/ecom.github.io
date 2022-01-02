@@ -137,28 +137,35 @@ include("header.php");
         ?>
     </div>
     <script>
-        $(document).ready(function() {
-            $('#product_modal').hide();
-            $('.product_image').click(function() {
-                var image = $(this).attr('id');
-                $.ajax({
-                    type: "POST",
-                    url: "ajaxhandler.php",
-                    data: {
-                        image: image
-                    },
-                    success: function(response) {
-                        if (response == "false") {
-                            alert("Error Occured While Opening Quick view");
-                            $('#product_modal').hide();
-                        } else {
-                            $('#product_modal').show();
-                            $('#product_modal').html(response);
-                        }
+            $(document).ready(function() {
+        $('#product_modal').hide();
+        $('.product_image').click(function() {
+            var image = $(this).attr('id');
+            $.ajax({
+                type: "POST",
+                url: "ajaxhandler.php",
+                data: {
+                    image: image
+                },
+                success: function(response) {
+                    if (response == "false") {
+                        swal({
+                            title: "Error Occured!",
+                            text: "Error Occured while Opening Modal",
+                            icon: "warning",
+                        });
+                        $('#product_modal').hide();
+                    } else {
+                        // alert(response);
+                        // db_response = JSON.parse(response);
+                        $('#product_modal').show();
+                        $('#product_modal').html(response);
+                        // alert(response);
                     }
-                });
+                }
             });
         });
+    });
     </script>
 </body>
 <?php
