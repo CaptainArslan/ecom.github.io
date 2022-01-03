@@ -1,5 +1,6 @@
 ::-webkit-scrollbar{
     width: 6px;
+    height: 6px;
 }
 /* ::-webkit-scrollbar-track{
     border-radius: 5px;
@@ -67,39 +68,45 @@ h3{
 .icon-container {
     margin-bottom: 20px;
     padding: 3px 0;
-  }
-
-  /* Inline CSS
-
-  .products{
-    background: #fff; 
-    display: flex; 
-    justify-content: space-between; 
-    border-radius: 10px; 
-    margin-top: 10px; 
-    padding: 10px; 
-    align-items: center;
-  }
-  .product_name_price{
-    display: flex; 
-    justify-content: space-between; 
-    flex-basis: 80%;
-  }
-  .price{
-    display: flex; 
-    justify-content: space-between; 
-    margin-top: 10px; 
+}
+table{
+    /* background-color: #ff523b; */
     padding: 10px;
-  }
-strong{
-    text-transform: capitalize;
-} */
+    /* height: auto; */
+    /* overflow: auto; */
+    /* overflow-x:auto; */
+    text-align: center;
+    border-collapse: collapse;
+}
+thead{
+    /* background: #ff523b; */
+    font-weight: 400;
+}
+td img{
+    height: 50px;
+    width: 50px;
+    object-fit: contain;
+}
+
+table td{
+    font-size: 14px;
+}
+th, td {
+    padding: 5px;
+}
+tbody tr:nth-child(even){
+    background: #f8f8f8;
+}
+tbody tr:hover{
+    background: #e4e4e4;
+}
+
 .place_order{
     background: #ff523b;
     padding: 10px;
     text-align: center;
     color: #fff;
-    border-radius: 10px;
+    /* border-radius: 10px; */
     outline: none;
     border: none;
     font-size: 15px;
