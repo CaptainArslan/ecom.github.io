@@ -77,7 +77,7 @@ if (isset($_POST['action']) && $_POST['action'] == "changequantity") {
                                     <form method='post' action=''>
                                         <input type='hidden' name='product_code' value="<?php echo $product["product_code"]; ?>" />
                                         <input type='hidden' name='action' value="remove" />
-                                        <button type='submit' class='remove'>Remove Item</button>
+                                        <button type='submit' class='remove' onclick="return confirm('Are you sure to remove this product'); ">Remove Item</button>
                                     </form>
                                     <!-- <a href="">Remove</a> -->
                                 </div>

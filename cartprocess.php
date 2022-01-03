@@ -52,7 +52,7 @@ if (isset($_POST['code']) && $_POST['code'] != "") {
                 //         </script>';
                         echo '<script>
                         swal({
-                            title: "Error Occur",
+                            title: "WARNING",
                             text: "Product is already added to your cart!",
                             icon: "warning",
                         });
