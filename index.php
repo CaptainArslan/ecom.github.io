@@ -15,11 +15,9 @@ include_once("cartprocess.php");
     <title>Ecommerce Store</title>
     <link rel="stylesheet" href="css/index.css">
     <link rel="stylesheet" href="css/fw/all.min.css">
-    
+
     <!-- Jquery  -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" integrity="sha512-tS3S5qG0BlhnQROyJXvNjeEM4UpMXHrQfTGmbQ1gKmelCxlSEBUaxhRBj/EFTzpbP4RVSrpEikbmdJobCvhE3g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css" integrity="sha512-sMXtMNL1zRzolHYKEujM2AqCLUR9F2C4/05cdbxjjLSRvMQIciEPCQZo++nk7go3BtSuK9kfa/s+a4f4i5pLkw==" crossorigin="anonymous" referrerpolicy="no-referrer" /> -->
 
     <script src="js/jquery-3.js"></script>
     <!-- <script src="js/jquery-2.1.1.js"></script> -->
@@ -191,15 +189,14 @@ include_once("cartprocess.php");
                             <img src="img\product_img\<?php echo  $row['product_image']; ?>" alt="Product Image" class="product_image" id="<?php echo  $row['product_code']; ?>">
                             <h4><?php echo $row['product_name']; ?></h4>
                             <div class="rating">
-                                <?php 
-                                $rating = round($row['product_rating']);
-                                // echo $rating;
-                                for($i = 0; $i<=$rating; $i++){
+                            <?php
+                                    for($i = 0; $i<round($row['product_rating']); $i++){
                                     ?>
                                         <i class="fa fa-star"></i>
                                     <?php
-                                }
+                                    }
                                 ?>
+                                <!-- <i class="fa fa-star"><?php echo $row['product_rating']; ?></i> -->
                             </div>
                             <p> $<?php echo number_format($row['product_price'], 2); ?></p>
                             <button type="submit" class="btn">Add To Cart</button>
@@ -235,15 +232,14 @@ include_once("cartprocess.php");
                             <img src="img\product_img\<?php echo  $row['product_image']; ?>" alt="Product Image" class="product_image" id="<?php echo  $row['product_code']; ?>">
                             <h4><?php echo $row['product_name']; ?></h4>
                             <div class="rating">
-                            <?php 
-                                $rating = round($row['product_rating'] , 5);
-                                // echo $rating;
-                                for($i = 0; $i<=$rating; $i++){
+                            <?php
+                                    for($i = 0; $i<round($row['product_rating']); $i++){
                                     ?>
                                         <i class="fa fa-star"></i>
                                     <?php
-                                }
+                                    }
                                 ?>
+                                <!-- <i class="fa fa-star"><?php echo $row['product_rating']; ?></i> -->
                             </div>
                             <p> $<?php echo number_format($row['product_price'], 2); ?></p>
                             <button type="submit" class="btn">Add To Cart</button>
@@ -305,7 +301,7 @@ include_once("cartprocess.php");
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
                     </div>
-                    <img src="img/userreviews/user-1.png" style="width: 50px ; height: 50px; object-fit: contain;"  alt="user image and review">
+                    <img src="img/userreviews/user-1.png" style="width: 50px ; height: 50px; object-fit: contain;" alt="user image and review">
                     <h3>User Name</h3>
                 </div>
                 <div class="col-3 ">
@@ -444,20 +440,18 @@ include_once("cartprocess.php");
     $(document).ready(function() {
         $('#product_modal').hide();
         $('.product_image').click(function() {
-            var image = $(this).attr('id');
+            var code = $(this).attr('id');
             $.ajax({
                 type: "POST",
                 url: "ajaxhandler.php",
-                data: {
-                    image: image
-                },
+                data: "code=" + code,
                 success: function(response) {
-                    if (response == "false") {
+                    if (response === "notset") {
                         swal({
                             title: "Error Occured!",
                             text: "Error Occured while Opening Modal",
                             icon: "warning",
-                        });
+                        })
                         $('#product_modal').hide();
                     } else {
                         // alert(response);
@@ -472,18 +466,18 @@ include_once("cartprocess.php");
 
 
         $('.owl-carousel').owlCarousel({
-    loop:true,
-    autoplay:true,
-    margin:10,
-    responsive:{
-        0:{
-            items:1
-        },
-        600:{
-            items:3
-        }
-    }
-})
+            loop: true,
+            autoplay: true,
+            margin: 10,
+            responsive: {
+                0: {
+                    items: 1
+                },
+                600: {
+                    items: 3
+                }
+            }
+        });
 
     });
 </script>

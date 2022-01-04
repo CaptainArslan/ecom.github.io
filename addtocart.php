@@ -77,7 +77,7 @@ if (isset($_POST['action']) && $_POST['action'] == "changequantity") {
                                     <form method='post' action=''>
                                         <input type='hidden' name='product_code' value="<?php echo $product["product_code"]; ?>" />
                                         <input type='hidden' name='action' value="remove" />
-                                        <button type='submit' class='remove' onclick="return confirm('Are you sure to remove this product'); ">Remove Item</button>
+                                        <button type='submit' class='remove'>Remove Item</button>
                                     </form>
                                     <!-- <a href="">Remove</a> -->
                                 </div>
@@ -114,60 +114,47 @@ if (isset($_POST['action']) && $_POST['action'] == "changequantity") {
                 ?>
             <?php
         } else {
-            echo "<h3>Your cart is empty!</h3>";
+            echo '<div style="text-align: center; padding: 10px;background: #ff523b; color:#fff; text-transform:capitalize">
+                    <h3>Your cart is empty!</h3>
+                </div>';
         }
             ?>
             </table>
+            <?php
+            if (isset($_SESSION["shopping_cart"])) {
+            ?>
+                <div class="total-price">
+                    <table>
+                        <tr>
+                            <td>Subtotal</td>
+                            <td>Rs.<?php echo $total_price; ?>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Tax</td>
+                            <td>Rs.<?php echo $total_tax; ?></td>
+                        </tr>
+                        <tr>
+                            <td>Grand Total</td>
+                            <td>Rs.<?php echo $grand_total; ?></td>
+                        </tr>
+                    </table>
 
-            <div class="total-price">
-                <table>
-                    <tr>
-                        <td>Subtotal</td>
-                        <td>Rs.<?php
-                                if (isset($_SESSION["shopping_cart"])) {
+                </div>
+            <?php
+            }
+            ?>
 
-                                    echo $total_price;
-                                } else {
-                                    $total_price = 0;
-                                    echo "0.00";
-                                }
-                                ?></td>
-                    </tr>
-                    <tr>
-                        <td>Tax</td>
-                        <td>Rs.<?php
-                                if (isset($_SESSION["shopping_cart"])) {
-                                    echo $total_tax;
-                                } else {
-                                    $total_tax = 0;
-                                    echo "0.00";
-                                }
-                                ?></td>
-                    </tr>
-                    <tr>
-                        <td>Grand Total</td>
-                        <td>Rs.<?php
-                                if (isset($_SESSION["shopping_cart"])) {
-                                    echo $grand_total;
-                                } else {
-                                    $grand_total = 0;
-                                    echo "0.00";
-                                } ?></td>
-                    </tr>
-                </table>
-
-            </div>
     </div>
 
 
 
     <div class="small_container">
         <div class="checkout">
+            <a href="allproducts.php" class="checkout_btn btn">Continue Shopping</a>
             <?php
             if (isset($_SESSION["shopping_cart"])) {
             ?>
-                <a href="index.php" class="checkout_btn btn">Continue Shopping</a>
-
                 <form action="checkout.php?code = <?php echo $product["product_code"]; ?>" method="POST">
                     <button class="checkout_btn" type="submit" name="checkoutbutton"> Continue To Proceed </button>
                 </form>
@@ -175,8 +162,6 @@ if (isset($_POST['action']) && $_POST['action'] == "changequantity") {
             <?php
             }
             ?>
-
-
         </div>
     </div>
 

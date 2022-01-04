@@ -72,7 +72,7 @@ if(isset($_SESSION['user_id'])){
                                         
                                     }
                                     // alert("Congratulation! you are logged in successfully");
-                                    header('location: index.php');
+                                    // header('location: index.php');
                                 }
                                 else 
                                 {

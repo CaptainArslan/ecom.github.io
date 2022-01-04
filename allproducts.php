@@ -1,15 +1,14 @@
-<?php
-include("header.php");
-?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
+    <title>All Products</title>
     <link rel="stylesheet" href="css/allproduct.css">
 </head>
 
 <body>
     <?php
+    include("header.php");
     // include("dbcon.php");
     include("totop.php");
     ?>
@@ -18,18 +17,18 @@ include("header.php");
         <div class="row row-2">
             <h2>All Products</h2>
             <form action="" method="POST">
-                <select name="sorting" id="sorting" value="<?php echo "selected" ?>" onchange="this.form.submit();">
-                    <option value="0">Default sorting</option>
-                    <option value="1">Sort by Rating</option>
-                    <!-- <option value="product_rating">Sort by popularity</option> -->
-                    <option value="2">Sort by price </option>
-                    <!-- <option value="">sort by sale</option> -->
+                <select name="sorting" id="sorting" selected="<?php echo "selected" ?>">
+                    <option value="D">Default sorting</option>
+                    <option value="MR">Sort by Max Rating</option>
+                    <option value="LR">Sort by Low Rating</option>
+                    <option value="MP">Sort by Max price </option>
+                    <option value="LP">Sort by Low price </option>
                 </select>
             </form>
         </div>
         <!-- Latest Products -->
 
-        <div class="row ">
+        <div class="row products">
             <?php
             //Paggination Code Start
             $limit = 12;
@@ -40,25 +39,13 @@ include("header.php");
                 $page = 1;
             }
             $offset = ($page - 1) * $limit;
+            // echo $offset;
             //Paggination Code End
-            if (isset($_POST['sorting'])) {
-                $filter = $_POST['sorting'];
 
-                // echo $filter;
+            $filter = 0;
+            $query = "SELECT * FROM `products` where `product_quantity` >= 1";
+            $result = mysqli_query($con, $query);
 
-                if ($filter == 1) {
-                    $queryrating = "SELECT * FROM `products` where `product_quantity` >= 1 order by product_rating DESC LIMIT {$offset}, {$limit}";
-                    $result = mysqli_query($con, $queryrating);
-                } else if ($filter == 2) {
-
-                    $queryprice = "SELECT * FROM `products` where `product_quantity` >= 1 order by product_price ASC LIMIT {$offset}, {$limit}";
-                    $result = mysqli_query($con, $queryprice);
-                }
-            } else {
-                $filter = 0;
-                $query = "SELECT * FROM `products` where `product_quantity` >= 0 order by product_id ASC LIMIT {$offset}, {$limit} ";
-                $result = mysqli_query($con, $query);
-            }
 
             $num  = mysqli_num_rows($result);
             if ($num > 0) {
@@ -70,23 +57,27 @@ include("header.php");
                             <img src="img\product_img\<?php echo  $row['product_image']; ?>" alt="Product Image" class="product_image" id="<?php echo  $row['product_code']; ?>">
                             <h4><?php echo $row['product_name']; ?></h4>
                             <div class="rating">
-                            <?php 
-                                $rating = round($row['product_rating'] , 5);
-                                // echo $rating;
-                                for($i = 0; $i<=$rating; $i++){
+                                <?php
+                                    for($i = 0; $i<round($row['product_rating']); $i++){
                                     ?>
                                         <i class="fa fa-star"></i>
                                     <?php
-                                }
+                                    }
                                 ?>
+                                <!-- <i class="fa fa-star"></i><?php echo $row['product_rating']; ?> -->
                             </div>
-                            <p> $<?php echo number_format($row['product_price'], 2); ?></p>
+                            <p> Rs.<?php echo number_format($row['product_price'], 2); ?></p>
                             <button type="submit" class="btn">Add To Cart</button>
                         </div>
                     </form>
-            <?php
+                <?php
                 }
             } else {
+                ?>
+                <div style="text-align: center;">
+                    <h1>No Product Found</h1>
+                </div>
+            <?php
             }
             ?>
         </div>
@@ -145,23 +136,39 @@ include("header.php");
         ?>
     </div>
     <script>
-            $(document).ready(function() {
-        $('#product_modal').hide();
-        $('.product_image').click(function() {
-            var image = $(this).attr('id');
+        $(document).ready(function() {
+            //Must be first
+            $('#product_modal').hide();
+
+
+            $('#sorting').change(function() {
+                var sort = $(this).val();
+                // alert(sort);    
+                $.ajax({
+                    type: "POST",
+                    url: "ajaxhandler.php",
+                    data: "sort=" + sort,
+                    success: function(response) {
+                        // alert(response);
+                        $('.products').html(response)
+                    }
+                });
+            });
+
+
+            $('.product_image').click(function() {
+            var code = $(this).attr('id');
             $.ajax({
                 type: "POST",
                 url: "ajaxhandler.php",
-                data: {
-                    image: image
-                },
+                data: "code=" + code,
                 success: function(response) {
-                    if (response == "false") {
+                    if (response === "notset") {
                         swal({
                             title: "Error Occured!",
                             text: "Error Occured while Opening Modal",
                             icon: "warning",
-                        });
+                        })
                         $('#product_modal').hide();
                     } else {
                         // alert(response);
@@ -173,7 +180,8 @@ include("header.php");
                 }
             });
         });
-    });
+
+        });
     </script>
 </body>
 <?php

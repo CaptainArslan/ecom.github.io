@@ -238,7 +238,7 @@ include("dbcon.php");
         } 
         else 
         {
-            include_once('loginpopup.php');
+            include_once('popupform.php');
         }
     } 
     else 
@@ -317,7 +317,7 @@ include("dbcon.php");
             $mail->Port = 587;
             $mail->Username = "arslan031776@gmail.com";
             $mail->Password = "bcsf17r23A";
-            $mail->Subject = "This is php mailer email";
+            $mail->Subject = "Red Store Order";
             $mail->setFrom("arslan031776@gmail.com");
             $mail->addEmbeddedImage("img\product_img\/' . $image. '",'Order images');
             $mail->isHTML(true);

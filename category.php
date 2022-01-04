@@ -36,7 +36,7 @@ include("header.php");
             ?>
             
             <form action="" method="POST">
-                <select name="sorting" id="sorting" value="selected" onchange="this.form.submit();">
+                <select name="sorting" id="sorting" value="<?php echo "selected" ?>" onchange="this.form.submit();">
                     <option value="0">Default sorting</option>
                     <option value="1">Sort by Rating</option>
                     <!-- <option value="product_rating">Sort by popularity</option> -->
@@ -79,15 +79,7 @@ include("header.php");
                             <img src="img/product_img/<?php echo  $row['product_image']; ?>" alt="Product Image">
                             <h4><?php echo $row['product_name']; ?></h4>
                             <div class="rating">
-                            <?php 
-                                $rating = round($row['product_rating'] , 5);
-                                // echo $rating;
-                                for($i = 0; $i<=$rating; $i++){
-                                    ?>
-                                        <i class="fa fa-star"></i>
-                                    <?php
-                                }
-                                ?>
+                                <i class="fa fa-star"><?php echo $row['product_rating']; ?></i>
                             </div>
                             <p> $<?php echo number_format($row['product_price'], 2); ?></p>
                             <button type="submit" class="btn">Add To Cart</button>

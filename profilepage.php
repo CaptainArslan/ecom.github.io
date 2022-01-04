@@ -85,7 +85,7 @@ if (!isset($_SESSION['user'])) {
                             {
                                 ?>
                                     <tr>
-                                        <td colspan="13" style="text-transform: capitalize;">Not Any order till YET</td>
+                                        <td colspan="13">You Didn't Place any till now</td>
                                     </tr>
                                 <?php
                             }

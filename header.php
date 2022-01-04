@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="css/fw/all.min.css">
 
     <script src="js/sweetalert_plugin.js"></script>
-    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/jquery-3.js"></script>
 </head>
 
 <body>
@@ -137,13 +137,13 @@
 
 
     // // User Profile modal
-    // var modal = document.getElementById('id01');
-    // // When the user clicks anywhere outside of the modal, close it
-    // window.onclick = function(event) {
-    //     if (event.target == modal) {
-    //         modal.style.display = "none";
-    //     }
-    // }
+    var modal = document.getElementById('id01');
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
 
     // js for toggle menu 
 
