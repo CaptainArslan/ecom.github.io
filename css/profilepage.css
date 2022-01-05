@@ -67,3 +67,18 @@ td button{
 td button:hover{
     background: #ff371c;
 }
+
+.container{
+    max-width: 1100px;
+    margin: auto;
+    padding-left: 25px;
+    padding-right: 25px;
+}
+/* root row class is used in multiple places */
+.row{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+

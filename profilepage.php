@@ -24,6 +24,7 @@ if (!isset($_SESSION['user'])) {
 </head>
 
 <body>
+
     <!-- Order of every Customer -->
     <div class="order-table">
         <div class="container">
@@ -93,7 +94,7 @@ if (!isset($_SESSION['user'])) {
 
                         </tbody>
                         <tfoot>
-<!-- Nothing here till yet -->
+                            <!-- Nothing here till yet -->
                         </tfoot>
                     </table>
                 </div>

@@ -238,7 +238,7 @@ include("dbcon.php");
         } 
         else 
         {
-            include_once('popupform.php');
+            include_once('modal.php');
         }
     } 
     else 
