@@ -1,3 +1,9 @@
+
+    <?php
+    include("header.php");
+    // include("dbcon.php");
+    include("totop.php");
+    ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,11 +13,7 @@
 </head>
 
 <body>
-    <?php
-    include("header.php");
-    // include("dbcon.php");
-    include("totop.php");
-    ?>
+
 
     <div class="small_container">
         <div class="row row-2">
@@ -58,9 +60,9 @@
                             <h4><?php echo $row['product_name']; ?></h4>
                             <div class="rating">
                                 <?php
-                                    for($i = 0; $i<round($row['product_rating']); $i++){
+                                    for($i = 1; $i<=round($row['product_rating']); $i++){
                                     ?>
-                                        <i class="fa fa-star"></i>
+                                        <i class="fa fa-star" id="<?php echo $i; ?>" data="<?php echo $i; ?>"></i>
                                     <?php
                                     }
                                 ?>
@@ -140,6 +142,11 @@
             //Must be first
             $('#product_modal').hide();
 
+            //Rating start Ajax Handler
+            $('.fa-star').click(function () { 
+                var rating = $(this).attr('id');
+                alert(rating);
+            });
 
             $('#sorting').change(function() {
                 var sort = $(this).val();

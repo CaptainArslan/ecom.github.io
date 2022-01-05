@@ -46,7 +46,7 @@
                         <?php
                         } else {
                         ?>
-                            <li class="logout_btn"><a href="logout.php" onclick="return confirm('Are you Sure');">Logout</a></li>
+                            <li class="logout_btn"><a href="logout.php" onclick="return swal('Hello world!');">Logout</a></li>
                         <?php
                         }
 

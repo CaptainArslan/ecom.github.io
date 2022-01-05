@@ -43,22 +43,26 @@
     $grand_total = 0;
     $unit_price = 0;
     $total_quantity = 0;
+    $user_email = '';
 
     if (isset($_SESSION['shopping_cart'])) {
-        $user_email = $_SESSION['email'];
-        $check_user  = mysqli_query($con, "SELECT * FROM `user` where `user_email` = '$user_email'");
-        $row = mysqli_fetch_assoc($check_user);
-        // var_dump($row);
-        // exit;
-        $id = $row['user_id'];
-        $name = $row['user_name'];
-        $email = $row['user_email'];
-        $phone = $row['user_phone'];
-        // $address = $row['user_address'];
-        $address = $row['user_address'];
-        $city = $row['user_city'];
-        $zip = $row['user_zip'];
-        $state = $row['user_state'];
+        if(isset($_SESSION['email']))
+        {
+            $user_email = $_SESSION['email'];
+            $check_user  = mysqli_query($con, "SELECT * FROM `user` where `user_email` = '$user_email'");
+            $row = mysqli_fetch_assoc($check_user);
+            // var_dump($row);
+            // exit;
+            $id = $row['user_id'];
+            $name = $row['user_name'];
+            $email = $row['user_email'];
+            $phone = $row['user_phone'];
+            // $address = $row['user_address'];
+            $address = $row['user_address'];
+            $city = $row['user_city'];
+            $zip = $row['user_zip'];
+            $state = $row['user_state'];
+        }
     }
     $item = '<table style="max-width:670px;margin:50px auto 10px;background-color:#fff;padding:50px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);-moz-box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24); border-top: solid 10px #ffd6d6;">
     <thead>

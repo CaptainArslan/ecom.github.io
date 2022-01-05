@@ -7,6 +7,9 @@
 /* ::-webkit-scrollbar{
     width: 6px;
 } */
+html{
+    scroll-behavior: smooth;
+}
 .navbar{
     display: flex;
     align-items: center;
@@ -84,12 +87,9 @@ p{
 .header{
     /* background: radial-gradient(#fff,#ffd6d6); */
     background: #ffd6d6;
-}
-.sticky{
-    position: fixed;
+    position: sticky;
     top: 0;
-    width: 100%;
-    z-index: 1000;
+    z-index: 100;
 }
 .container{
     max-width: 1100px;

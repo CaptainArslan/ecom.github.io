@@ -31,7 +31,14 @@ if (isset($_POST['code']) && $_POST['code'] != '')
                     </p>
                     <ul class="cd-item-action" style="list-style: none;">
                         <div class="rating">
-                            <i class="fa fa-star" id="product_modal_rating"><?php echo  $row['product_rating']; ?></i>
+                        <?php
+                                    for($i = 0; $i<round($row['product_rating']); $i++){
+                                    ?>
+                                        <i class="fa fa-star"></i>
+                                    <?php
+                                    }
+                                ?>
+                            <!-- <i class="fa fa-star" id="product_modal_rating"><?php echo  $row['product_rating']; ?></i> -->
                         </div>
                         <li class="rating">Rs.<?php echo  $row['product_price']; ?></li>
                         <li><button class="add-to-cart btn" type="submit">Add to cart</button></li>

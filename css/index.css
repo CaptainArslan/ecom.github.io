@@ -20,6 +20,9 @@
 ::-webkit-scrollbar-thumb:hover{
     background: #ff523b;
 }
+html{
+    scroll-behavior: smooth;
+}
 .header{
     background: url(https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.rehmantravel.com%2Fpakistantours%2F&psig=AOvVaw20qmuLpZCChQLrKIiHZX-l&ust=1631724200554000&source=images&cd=vfe&ved=0CAsQjRxqFwoTCPidg730_vICFQAAAAAdAAAAABAD);
 }

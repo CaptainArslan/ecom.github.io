@@ -110,14 +110,17 @@ th:last-child{
     padding: 10px;
     text-align: center;
     color: #fff;
-    border-radius: 10px;
+    font-weight: 600;
+    /* border-radius: 10px; */
     outline: none;
-    border: none;
+    border: 2px solid #ff523b;    
     font-size: 15px;
 }
 .checkout_btn:hover{
-    background: #d6d6d6;
+    background: #ffffff;
     color: #ff523b;
+    font-weight: 600;
+    border: 2px solid #ff523b;
 }
 
 
