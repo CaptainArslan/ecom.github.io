@@ -381,7 +381,7 @@ include_once("cartprocess.php");
     <!-- Brands -->
     <div class="brands">
         <div class="small_container">
-            <div class="row">
+            <div class="row  owl-carousel">
 
                 <?php
                 $sponser_logo = mysqli_query($con, "SELECT`sponser_image` FROM `sponsers_logo`");

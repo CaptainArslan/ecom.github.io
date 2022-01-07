@@ -1,4 +1,12 @@
 <?php
+require 'includes/PHPMailer.php';
+require 'includes/Exception.php';
+require 'includes/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+
 include("header.php");
 include("dbcon.php");
 
@@ -15,15 +23,16 @@ include("dbcon.php");
     <?php
         include("totop.php");
         $style = '';
+        $_SESSION['msg'] = '';
         // <!-- Register User code -->
         if (isset($_POST['register_btn'])) {
+
             $user_name = mysqli_real_escape_string($con, $_POST['txt_name']);
             $user_email = mysqli_real_escape_string($con, $_POST['txt_email']);
             $user_phone = mysqli_real_escape_string($con, $_POST['txt_phone']);
             $user_password = mysqli_real_escape_string($con, $_POST['txt_password']);
             $user_compassword = mysqli_real_escape_string($con, $_POST['txt_confirm_password']);
             $date = date("Y-m-d h:i:sa");
-
 
             $pass = password_hash($user_password, PASSWORD_BCRYPT);
             $cpass = password_hash($user_compassword, PASSWORD_BCRYPT);
@@ -33,6 +42,7 @@ include("dbcon.php");
             $emailresult = mysqli_query($con, $emailquery);
             $emailcount = mysqli_num_rows($emailresult);
 
+            $token = bin2hex(random_bytes(15));
             if ($emailcount > 0) {
                 echo '<script>
                                             swal({
@@ -44,27 +54,47 @@ include("dbcon.php");
             } else {
 
                 if ($user_password === $user_compassword) {
-                    $insertquery = "INSERT INTO `user`(`date`, `user_name`, `user_email`, `user_phone`, `user_password`, `user_confirm_password`, `user_role`) 
-                                            VALUES ('$date','$user_name','$user_email','$user_phone','$pass','$cpass','$user_role')";
+                    $insertquery = "INSERT INTO `user`(`date`, `user_name`, `user_email`, `user_phone`, `user_password`, `user_confirm_password`, `user_role`, `user_token`, `user_status`) 
+                                            VALUES ('$date','$user_name','$user_email','$user_phone','$pass','$cpass','$user_role' , '$token', 'inactive')";
 
                     $queryfire = mysqli_query($con, $insertquery);
+                    $mail = new PHPMailer();
+                    $mail->isSMTP();
+                    $mail->Host = "smtp.gmail.com";
+                    $mail->SMTPAuth  = "true";
+                    $mail->SMTPSecure = "tls";
+                    $mail->Port = 587;
+                    $mail->Username = "arslan031776@gmail.com";
+                    $mail->Password = "Bcsf17r23A";
+                    $mail->Subject = "Email Activation";
+                    $mail->setFrom("arslan031776@gmail.com");
+                    // $mail->addEmbeddedImage("img\product_img\/' . $image. '",'Order images');
+                    $mail->isHTML(true);
+                    $mail->Body = " Hello '.$user_name.' Click Here To Activate your Account http://localhost/ecom/activate.php?token=$token";
+                    $mail->addAddress($user_email);
+                    if ($mail->send()) {
+                        // echo 'send';
+                    } else {
+                        // echo 'Error';
+                    }
+                    $_SESSION['msg'] = "Check Your Email to Activate your Account $user_email";
                     echo '<script>
-                                            swal({
-                                                title: "Great News!",
-                                                text: "Your Are Registered Successfully",
-                                                icon: "success",
-                                            }).then(function(){
-                                                window.reload();
-                                            });
-                                            </script>';
+                        swal({
+                            title: "Great News!",
+                            text: "Your Are Registered Successfully Check Email to activate account",
+                            icon: "success",
+                        }).then(function(){
+                            window.reload();
+                        });
+                        </script>';
                 } else {
                     echo '<script>
-                                            swal({
-                                                title: "Error",
-                                                text: "Password! Does Not Matched Correctly!",
-                                                icon: "warning",
-                                            });
-                                            </script>';
+                        swal({
+                            title: "Error",
+                            text: "Password! Does Not Matched Correctly!",
+                            icon: "warning",
+                        });
+                        </script>';
                 }
             }
         }
@@ -136,6 +166,7 @@ include("dbcon.php");
     ?>
     <div class="account-page" >
         <div class="container">
+        <p style="background: #fff;text-align: center;color: red;"><?php echo $_SESSION['msg'];?></p>
             <div class="row">
                 <div class="col-2">
                     <img src="img/image1.png" alt="image" width="100%">

@@ -30,149 +30,145 @@ include("dbcon.php");
     $zip = '';
     $state = '';
     $item = '';
-    if (isset($_SESSION['shopping_cart']))
-    {
-        if (isset($_SESSION['email'])) 
-        { 
+    if (isset($_SESSION['shopping_cart'])) {
+        if (isset($_SESSION['email'])) {
             $user_email = $_SESSION['email'];
 
             $check_user  = mysqli_query($con, "SELECT * FROM `user` where `user_email` = '$user_email'");
 
             $user_count = mysqli_num_rows($check_user);
-                $row = mysqli_fetch_array($check_user);
-                $id = $row['user_id'];
-                $name = $row['user_name'];
-                $email = $row['user_email'];
-                $phone = $row['user_phone'];
-                // $address = $row['user_address'];
-                $address = $row['user_address'];
-                $city = $row['user_city'];
-                $zip = $row['user_zip'];
-                $state = $row['user_state'];
-                ?>
-                    <form action="" method="POST">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2">
-                                    <div class="row-2">
-                                        <div class="input-container">
-                                            <h3>Billing</h3>
+            $row = mysqli_fetch_array($check_user);
+            $id = $row['user_id'];
+            $name = $row['user_name'];
+            $email = $row['user_email'];
+            $phone = $row['user_phone'];
+            // $address = $row['user_address'];
+            $address = $row['user_address'];
+            $city = $row['user_city'];
+            $zip = $row['user_zip'];
+            $state = $row['user_state'];
+    ?>
+            <form action="" method="POST">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-2">
+                            <div class="row-2">
+                                <div class="input-container">
+                                    <h3>Billing</h3>
 
-                                            <input type="hidden" name="user_id" value="<?php echo $row['user_id']; ?>">
+                                    <input type="hidden" name="user_id" value="<?php echo $row['user_id']; ?>">
 
-                                            <!-- <label for="">User ID</label>
+                                    <!-- <label for="">User ID</label>
                                             <input type="text" name="" id="" placeholder="M Arslan" title="username" value="<?php echo $row['user_id']; ?>" > -->
 
-                                            <label for="">User Name</label>
-                                            <input type="text" name="user_name" id="" placeholder="M Arslan" title="username" value="<?php echo $row['user_name']; ?>">
+                                    <label for="">User Name</label>
+                                    <input type="text" name="user_name" id="" placeholder="M Arslan" title="username" value="<?php echo $row['user_name']; ?>">
 
-                                            <label for="">Email</label>
-                                            <input type="email" name="user_email" id="" placeholder="123456@gmail.com" value="<?php echo $row['user_email']; ?>">
-                                            <label for="">Address</label>
-                                            <input type="text" name="user_address" id="" placeholder="524 gujranwala ..." value="<?php echo $row['user_address']; ?>" required>
-                                            <label for="">City</label>
-                                            <input type="text" name="user_city" id="" placeholder="Gujranwala" value="<?php echo $row['user_city']; ?>" required>
-                                            <div class="row-2">
-                                                <div class="input-container">
-                                                    <label for="">Zip</label>
-                                                    <input type="text" name="user_zip" id="" placeholder="52250" value="<?php echo $row['user_zip']; ?>" required>
-                                                </div>
-                                                <div class="input-container">
-                                                    <label for="">State</label>
-                                                    <input type="text" name="user_state" id="" placeholder="gujranwala" value="<?php echo $row['user_state']; ?>" required>
-                                                </div>
-                                            </div>
+                                    <label for="">Email</label>
+                                    <input type="email" name="user_email" id="" placeholder="123456@gmail.com" value="<?php echo $row['user_email']; ?>">
+                                    <label for="">Address</label>
+                                    <input type="text" name="user_address" id="" placeholder="524 gujranwala ..." value="<?php echo $row['user_address']; ?>" required>
+                                    <label for="">City</label>
+                                    <input type="text" name="user_city" id="" placeholder="Gujranwala" value="<?php echo $row['user_city']; ?>" required>
+                                    <div class="row-2">
+                                        <div class="input-container">
+                                            <label for="">Zip</label>
+                                            <input type="text" name="user_zip" id="" placeholder="52250" value="<?php echo $row['user_zip']; ?>" required>
                                         </div>
                                         <div class="input-container">
-                                            <h3>Payment</h3>
-                                            <label for="">Accepted Cards</label>
-
-                                            <div class="icon-container">
-                                                <a href="visa"><i class="fab fa-cc-visa" style="color:navy; font-size: 40px;"></i></a>
-                                                <a href="amex"><i class="fab fa-cc-amex" style="color:blue; font-size: 40px;"></i></a>
-                                                <a href="mastercard"><i class="fab fa-cc-mastercard" style="color:red; font-size: 40px;"></i></a>
-                                                <!-- <a href="discover"><i class="fab fa-cc-discover" style="color:orange; font-size: 40px;"></i></a>
-                                                <a href="paypal"><i class="fab fa-cc-paypal" style="color:#3b7bbf; font-size: 40px;"></i></a>
-                                                <a href="amazon-pay"><i class="fab fa-cc-amazon-pay" style="color:#FF9900; font-size: 40px;"></i></a> -->
-                                            </div>
-
-
-                                            <label for="">Name on Card</label>
-                                            <input type="text" name="" id="" placeholder="Muhammad Arslan">
-
-                                            <label for="">Credit Card Number</label>
-                                            <input type="number" name="" id="" placeholder="1111-2222-3333-4444">
-
-                                            <label for="">Exp Month</label>
-                                            <input type="text" name="" id="" placeholder="September">
-
-
-                                            <div class="row-2">
-                                                <div class="input-container">
-                                                    <label for="">Exp Year</label>
-                                                    <input type="number" name="" id="" placeholder="2018">
-                                                </div>
-                                                <div class="input-container">
-                                                    <label for="">CVV</label>
-                                                    <input type="number" name="" id="" placeholder="344">
-                                                </div>
-                                            </div>
+                                            <label for="">State</label>
+                                            <input type="text" name="user_state" id="" placeholder="gujranwala" value="<?php echo $row['user_state']; ?>" required>
                                         </div>
                                     </div>
-                                    <!-- </form> -->
                                 </div>
+                                <div class="input-container">
+                                    <h3>Payment</h3>
+                                    <label for="">Accepted Cards</label>
 
-                                <div class="col-3">
-                                    <h3>Order Details</h3>
-                                    <hr>
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Image</th>
-                                                <th>Name</th>
-                                                <th>Quantity</th>
-                                                <th>Price</th>
+                                    <div class="icon-container">
+                                        <a href="visa"><i class="fab fa-cc-visa" style="color:navy; font-size: 40px;"></i></a>
+                                        <a href="amex"><i class="fab fa-cc-amex" style="color:blue; font-size: 40px;"></i></a>
+                                        <a href="mastercard"><i class="fab fa-cc-mastercard" style="color:red; font-size: 40px;"></i></a>
+                                        <!-- <a href="discover"><i class="fab fa-cc-discover" style="color:orange; font-size: 40px;"></i></a>
+                                                <a href="paypal"><i class="fab fa-cc-paypal" style="color:#3b7bbf; font-size: 40px;"></i></a>
+                                                <a href="amazon-pay"><i class="fab fa-cc-amazon-pay" style="color:#FF9900; font-size: 40px;"></i></a> -->
+                                    </div>
+
+
+                                    <label for="">Name on Card</label>
+                                    <input type="text" name="" id="" placeholder="Muhammad Arslan">
+
+                                    <label for="">Credit Card Number</label>
+                                    <input type="number" name="" id="" placeholder="1111-2222-3333-4444">
+
+                                    <label for="">Exp Month</label>
+                                    <input type="text" name="" id="" placeholder="September">
+
+
+                                    <div class="row-2">
+                                        <div class="input-container">
+                                            <label for="">Exp Year</label>
+                                            <input type="number" name="" id="" placeholder="2018">
+                                        </div>
+                                        <div class="input-container">
+                                            <label for="">CVV</label>
+                                            <input type="number" name="" id="" placeholder="344">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- </form> -->
+                        </div>
+
+                        <div class="col-3">
+                            <h3>Order Details</h3>
+                            <hr>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Name</th>
+                                        <th>Quantity</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $total_price = 0;
+                                    $total_tax = 0;
+                                    $grand_total = 0;
+                                    $unit_price = 0;
+                                    $total_quantity = 0;
+                                    if (isset($_SESSION['shopping_cart'])) {
+                                        foreach ($_SESSION['shopping_cart'] as $product) {
+
+                                            $total_quantity += $product["product_quantity"];
+                                            $total_price += ($product["product_price"] * $product["product_quantity"]);
+                                            $total_tax += ($product["product_tax"] * $product["product_quantity"]);
+                                            $grand_total = $total_price + $total_tax;
+                                    ?>
+                                            <tr style="text-align:center ;">
+                                                <td><img src="img\product_img\<?php echo $product["product_image"]; ?>" alt="<?php echo $product["product_name"]; ?>"></td>
+                                                <td><?php echo $product["product_name"]; ?></td>
+                                                <td><?php echo $product["product_quantity"]; ?></td>
+                                                <td><?php echo $total_price; ?></td>
                                             </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $total_price = 0;
-                                            $total_tax = 0;
-                                            $grand_total = 0;
-                                            $unit_price = 0;
-                                            $total_quantity = 0;
-                                            if (isset($_SESSION['shopping_cart'])) 
-                                            {
-                                                foreach ($_SESSION['shopping_cart'] as $product) 
-                                                {
+                                    <?php
+                                        }
+                                    }
+                                    ?>
 
-                                                    $total_quantity += $product["product_quantity"];
-                                                    $total_price += ($product["product_price"] * $product["product_quantity"]);
-                                                    $total_tax += ($product["product_tax"] * $product["product_quantity"]);
-                                                    $grand_total = $total_price + $total_tax;
-                                                    ?>
-                                                        <tr style="text-align:center ;">
-                                                            <td><img src="img\product_img\<?php echo $product["product_image"]; ?>" alt="<?php echo $product["product_name"]; ?>"></td>
-                                                            <td><?php echo $product["product_name"]; ?></td>
-                                                            <td><?php echo $product["product_quantity"]; ?></td>
-                                                            <td><?php echo $total_price; ?></td>
-                                                        </tr>
-                                                    <?php
-                                                }
-                                            }
-                                            ?>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <td>Quantity: <i><?php echo $total_quantity; ?></i> </td>
+                                        <td>Tax: <i><?php echo $total_tax; ?></i></td>
+                                        <td colspan="2">Total: Rs.<b><i><?php echo $grand_total; ?></i></b></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
 
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <td>Quantity: <i><?php echo $total_quantity; ?></i> </td>
-                                                <td>Tax: <i><?php echo $total_tax; ?></i></td>
-                                                <td colspan="2">Total: Rs.<b><i><?php echo $grand_total; ?></i></b></td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-
-                                    <!-- <h2 style="text-transform: capitalize;">Order details</h2>
+                            <!-- <h2 style="text-transform: capitalize;">Order details</h2>
                                     <hr>
                                     <br>
                                     <div class="heading" style="display: flex; justify-content: space-between; padding-left: 10px; padding-right: 10px;">
@@ -226,23 +222,19 @@ include("dbcon.php");
                                             <p>Grand Total : $<?php echo $grand_total; ?></p>
                                         </div>
                                     </div> -->
-                                </div>
-                            </div>
                         </div>
-                        <div class="row">
-                            <button class="place_order" type="submit" name="placeorder" >Place
-                                Order</button>
-                        </div>
-                    </form>
-                <?php
-        } 
-        else 
-        {
+                    </div>
+                </div>
+                <div class="row">
+                    <button class="place_order" type="submit" name="placeorder">Place
+                        Order</button>
+                </div>
+            </form>
+    <?php
+        } else {
             include_once('modal.php');
         }
-    } 
-    else 
-    {
+    } else {
         header('Location: index.php');
     }
     ?>
@@ -316,10 +308,10 @@ include("dbcon.php");
             $mail->SMTPSecure = "tls";
             $mail->Port = 587;
             $mail->Username = "arslan031776@gmail.com";
-            $mail->Password = "bcsf17r23A";
+            $mail->Password = "Bcsf17r23A";
             $mail->Subject = "Red Store Order";
             $mail->setFrom("arslan031776@gmail.com");
-            $mail->addEmbeddedImage("img\product_img\/' . $image. '",'Order images');
+            // $mail->addEmbeddedImage("img\product_img\/' . $image. '",'Order images');
             $mail->isHTML(true);
             // $mail->addAttachment("img/gallery-1.jpg");
 
@@ -349,19 +341,19 @@ include("dbcon.php");
                 <tr>
                     <td colspan="2" style="font-size:20px;padding:30px 15px 0 15px;">Items</td>
                 </tr>';
-    
-    
-        if (isset($_SESSION["shopping_cart"])) {
-    
-            foreach ($_SESSION["shopping_cart"] as $product) {
-                $total_quantity += $product["product_quantity"];
-                $total_price += ($product["product_price"] * $product["product_quantity"]);
-                $total_tax += ($product["product_tax"] * $product["product_quantity"]);
-                $grand_total = $total_price + $total_tax;
-    
-                $img = $product["product_image"];
-    
-                $item .= '<tr style="padding:15px">
+
+
+            if (isset($_SESSION["shopping_cart"])) {
+
+                foreach ($_SESSION["shopping_cart"] as $product) {
+                    $total_quantity += $product["product_quantity"];
+                    $total_price += ($product["product_price"] * $product["product_quantity"]);
+                    $total_tax += ($product["product_tax"] * $product["product_quantity"]);
+                    $grand_total = $total_price + $total_tax;
+
+                    $img = $product["product_image"];
+
+                    $item .= '<tr style="padding:15px">
                             <td>
                                 <p style="font-size:14px;margin:0;padding:10px;;font-weight:bold;">
                                     <span style="display:block;font-size:13px;font-weight:normal;">' . $product["product_name"] . '<br>
@@ -377,14 +369,14 @@ include("dbcon.php");
                         <tr>
                             <td colspan="2" style="border: solid 1px #ddd; padding:10px 20px;">
                                 <p style="font-size:14px;margin:0 0 6px 0;"><span style="font-weight:bold;display:inline-block;min-width:150px">Order status</span><b style="color:green;font-weight:normal;margin:0">Success</b></p>
-                                <p style="font-size:14px;margin:0 0 6px 0;"><span style="font-weight:bold;display:inline-block;min-width:146px">Transaction ID</span>'.$order_id.'</p>
-                                <p style="font-size:14px;margin:0 0 0 0;"><span style="font-weight:bold;display:inline-block;min-width:146px">Order amount</span> Rs.'.$grand_total.'.00</p>
+                                <p style="font-size:14px;margin:0 0 6px 0;"><span style="font-weight:bold;display:inline-block;min-width:146px">Transaction ID</span>' . $order_id . '</p>
+                                <p style="font-size:14px;margin:0 0 0 0;"><span style="font-weight:bold;display:inline-block;min-width:146px">Order amount</span> Rs.' . $grand_total . '.00</p>
                             </td>
                         </tr>
                         ';
+                }
             }
-        }
-        $item .= '
+            $item .= '
                  <tr>
                     <td colspan="2" style="padding:15px;">
                         <p style="margin:0;padding:10px;">
@@ -416,26 +408,33 @@ include("dbcon.php");
             $mail->addAddress($email);
 
             if ($mail->send()) {
-                unset($_SESSION['shopping_cart']);
-                    echo '<script>
-                swal({
-                    title: "Great News!",
-                    text: "Your Order has been placed successfully",
-                    icon: "success",
-                }).then(function() {
-                    location.reload();
-                    });
-                </script>';
-            } else {
+                echo 'send';
+            } 
+            else 
+            {
+                echo 'fail';
                 echo '<script>
-                swal({
-                    title: "Email Error!",
-                    text: "Error Sending Failed",
-                    icon: "warning",
-                });
-                </script>';
+                // swal({
+                //     title: "Error ",
+                //     text: "Error Occured While order placement",
+                //     icon: "warning",
+                // });
+                // </script>';
             }
+
             $mail->smtpClose();
+
+            unset($_SESSION['shopping_cart']);
+
+            echo '<script>
+            swal({
+                title: "Great News!",
+                text: "Your Order has been placed successfully check Your Email for order",
+                icon: "success",
+            }).then(function() {
+                location.reload();
+                });
+            </script>';
         } else {
             echo '<script>
            swal({

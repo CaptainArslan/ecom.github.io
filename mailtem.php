@@ -45,7 +45,6 @@
     $total_quantity = 0;
     $user_email = '';
 
-    if (isset($_SESSION['shopping_cart'])) {
         if(isset($_SESSION['email']))
         {
             $user_email = $_SESSION['email'];
@@ -62,8 +61,9 @@
             $city = $row['user_city'];
             $zip = $row['user_zip'];
             $state = $row['user_state'];
+            $order_id = rand();
+
         }
-    }
     $item = '<table style="max-width:670px;margin:50px auto 10px;background-color:#fff;padding:50px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);-moz-box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24); border-top: solid 10px #ffd6d6;">
     <thead>
         <tr>
@@ -92,17 +92,17 @@
         </tr>';
 
 
-if (isset($_SESSION["shopping_cart"])) {
+    if (isset($_SESSION["shopping_cart"])) {
 
-    foreach ($_SESSION["shopping_cart"] as $product) {
-        $total_quantity += $product["product_quantity"];
-        $total_price += ($product["product_price"] * $product["product_quantity"]);
-        $total_tax += ($product["product_tax"] * $product["product_quantity"]);
-        $grand_total = $total_price + $total_tax;
+        foreach ($_SESSION["shopping_cart"] as $product) {
+            $total_quantity += $product["product_quantity"];
+            $total_price += ($product["product_price"] * $product["product_quantity"]);
+            $total_tax += ($product["product_tax"] * $product["product_quantity"]);
+            $grand_total = $total_price + $total_tax;
 
-        $img = $product["product_image"];
+            $img = $product["product_image"];
 
-        $item .= '<tr style="padding:15px">
+            $item .= '<tr style="padding:15px">
                     <td>
                         <p style="font-size:14px;margin:0;padding:10px;;font-weight:bold;">
                             <span style="display:block;font-size:13px;font-weight:normal;">' . $product["product_name"] . '<br>
@@ -114,10 +114,18 @@ if (isset($_SESSION["shopping_cart"])) {
                             <img src="img\product_img\/' . $product["product_image"] . '" alt="product image" style="width: 100%;">
                         </div>
                     </td>
-                </tr>';
+                </tr>
+                <tr>
+                    <td colspan="2" style="border: solid 1px #ddd; padding:10px 20px;">
+                        <p style="font-size:14px;margin:0 0 6px 0;"><span style="font-weight:bold;display:inline-block;min-width:150px">Order status</span><b style="color:green;font-weight:normal;margin:0">Success</b></p>
+                        <p style="font-size:14px;margin:0 0 6px 0;"><span style="font-weight:bold;display:inline-block;min-width:146px">Transaction ID</span>' . $order_id . '</p>
+                        <p style="font-size:14px;margin:0 0 0 0;"><span style="font-weight:bold;display:inline-block;min-width:146px">Order amount</span> Rs.' . $grand_total . '.00</p>
+                    </td>
+                </tr>
+                ';
+        }
     }
-}
-$item .= '
+    $item .= '
          <tr>
             <td colspan="2" style="padding:15px;">
                 <p style="margin:0;padding:10px;">
@@ -130,13 +138,7 @@ $item .= '
             <tr>
                 <td style="height:35px;"></td>
             </tr>
-        <tr>
-            <td colspan="2" style="border: solid 1px #ddd; padding:10px 20px;">
-                <p style="font-size:14px;margin:0 0 6px 0;"><span style="font-weight:bold;display:inline-block;min-width:150px">Order status</span><b style="color:green;font-weight:normal;margin:0">Success</b></p>
-                <p style="font-size:14px;margin:0 0 6px 0;"><span style="font-weight:bold;display:inline-block;min-width:146px">Transaction ID</span> abc13234234 </p>
-                <p style="font-size:14px;margin:0 0 0 0;"><span style="font-weight:bold;display:inline-block;min-width:146px">Order amount</span> Rs.'.$grand_total.'.00</p>
-            </td>
-        </tr>
+        
         <tr>
             <td style="height:35px;"></td>
         </tr>
