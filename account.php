@@ -9,7 +9,7 @@ use PHPMailer\PHPMailer\SMTP;
 
 include("header.php");
 include("dbcon.php");
-
+include("totop.php");
 ?>
 
 <!DOCTYPE html>
@@ -21,158 +21,157 @@ include("dbcon.php");
 
 <body>
     <?php
-        include("totop.php");
-        $style = '';
-        $_SESSION['msg'] = '';
-        // <!-- Register User code -->
-        if (isset($_POST['register_btn'])) {
+    $style = '';
 
-            $user_name = mysqli_real_escape_string($con, $_POST['txt_name']);
-            $user_email = mysqli_real_escape_string($con, $_POST['txt_email']);
-            $user_phone = mysqli_real_escape_string($con, $_POST['txt_phone']);
-            $user_password = mysqli_real_escape_string($con, $_POST['txt_password']);
-            $user_compassword = mysqli_real_escape_string($con, $_POST['txt_confirm_password']);
-            $date = date("Y-m-d h:i:sa");
+    // <!-- Register User code -->
+    if (isset($_POST['register_btn'])) {
 
-            $pass = password_hash($user_password, PASSWORD_BCRYPT);
-            $cpass = password_hash($user_compassword, PASSWORD_BCRYPT);
-            $user_role = 'U';
+        $user_name = mysqli_real_escape_string($con, $_POST['txt_name']);
+        $user_email = mysqli_real_escape_string($con, $_POST['txt_email']);
+        $user_phone = mysqli_real_escape_string($con, $_POST['txt_phone']);
+        $user_password = mysqli_real_escape_string($con, $_POST['txt_password']);
+        $user_compassword = mysqli_real_escape_string($con, $_POST['txt_confirm_password']);
+        $date = date("Y-m-d h:i:sa");
 
-            $emailquery = "SELECT * FROM `user` WHERE `user_email` = '$user_email'";
-            $emailresult = mysqli_query($con, $emailquery);
-            $emailcount = mysqli_num_rows($emailresult);
+        $pass = password_hash($user_password, PASSWORD_BCRYPT);
+        $cpass = password_hash($user_compassword, PASSWORD_BCRYPT);
+        $user_role = 'U';
 
-            $token = bin2hex(random_bytes(15));
-            if ($emailcount > 0) {
+        $emailquery = "SELECT * FROM `user` WHERE `user_email` = '$user_email'";
+        $emailresult = mysqli_query($con, $emailquery);
+        $emailcount = mysqli_num_rows($emailresult);
+
+        $token = bin2hex(random_bytes(15));
+        if ($emailcount > 0) {
+            echo '<script>
+                    swal({
+                        title: "Error",
+                        text: "Email Already Exist!",
+                        icon: "warning",
+                    });
+                    </script>';
+        } else {
+
+            if ($user_password === $user_compassword) {
+                $insertquery = "INSERT INTO `user`(`date`, `user_name`, `user_email`, `user_phone`, `user_password`, `user_confirm_password`, `user_role`, `user_token`, `user_status`) 
+                    VALUES ('$date','$user_name','$user_email','$user_phone','$pass','$cpass','$user_role' , '$token', 'inactive')";
+
+                $queryfire = mysqli_query($con, $insertquery);
+                $mail = new PHPMailer();
+                $mail->isSMTP();
+                $mail->Host = "smtp.gmail.com";
+                $mail->SMTPAuth  = "true";
+                $mail->SMTPSecure = "tls";
+                $mail->Port = 587;
+                $mail->Username = "arslan031776@gmail.com";
+                $mail->Password = "Bcsf17r23A";
+                $mail->Subject = "Email Activation";
+                $mail->setFrom("arslan031776@gmail.com");
+                // $mail->addEmbeddedImage("img\product_img\/' . $image. '",'Order images');
+                $mail->isHTML(true);
+                $mail->Body = " Hello '.$user_name.' Click Here To Activate your Red Store Account http://localhost/ecom/activate.php?token=$token";
+                $mail->addAddress($user_email);
+                if ($mail->send()) {
+                    // echo 'send';
+                } else {
+                    // echo 'Error';
+                }
+                $_SESSION['msg'] = "Check Your Email to Activate your Account $user_email";
                 echo '<script>
-                                            swal({
-                                                title: "Error",
-                                                text: "Email Already Exist!",
-                                                icon: "warning",
-                                            });
-                                            </script>';
-            } else {
-
-                if ($user_password === $user_compassword) {
-                    $insertquery = "INSERT INTO `user`(`date`, `user_name`, `user_email`, `user_phone`, `user_password`, `user_confirm_password`, `user_role`, `user_token`, `user_status`) 
-                                            VALUES ('$date','$user_name','$user_email','$user_phone','$pass','$cpass','$user_role' , '$token', 'inactive')";
-
-                    $queryfire = mysqli_query($con, $insertquery);
-                    $mail = new PHPMailer();
-                    $mail->isSMTP();
-                    $mail->Host = "smtp.gmail.com";
-                    $mail->SMTPAuth  = "true";
-                    $mail->SMTPSecure = "tls";
-                    $mail->Port = 587;
-                    $mail->Username = "arslan031776@gmail.com";
-                    $mail->Password = "Bcsf17r23A";
-                    $mail->Subject = "Email Activation";
-                    $mail->setFrom("arslan031776@gmail.com");
-                    // $mail->addEmbeddedImage("img\product_img\/' . $image. '",'Order images');
-                    $mail->isHTML(true);
-                    $mail->Body = " Hello '.$user_name.' Click Here To Activate your Account http://localhost/ecom/activate.php?token=$token";
-                    $mail->addAddress($user_email);
-                    if ($mail->send()) {
-                        // echo 'send';
-                    } else {
-                        // echo 'Error';
-                    }
-                    $_SESSION['msg'] = "Check Your Email to Activate your Account $user_email";
-                    echo '<script>
                         swal({
                             title: "Great News!",
-                            text: "Your Are Registered Successfully Check Email to activate account",
+                            text: "Your Are Registered Successfully",
                             icon: "success",
                         }).then(function(){
                             window.reload();
                         });
                         </script>';
-                } else {
-                    echo '<script>
+            } else {
+                echo '<script>
                         swal({
                             title: "Error",
                             text: "Password! Does Not Matched Correctly!",
                             icon: "warning",
                         });
                         </script>';
-                }
             }
         }
-        // Login User
+    }
+    // Login User
 
-        if (isset($_POST['login_btn'])) {
+    if (isset($_POST['login_btn'])) {
 
-            $useremail = mysqli_real_escape_string($con, $_POST['useremail']);
-            $password = mysqli_real_escape_string($con, $_POST['password']);
+        $useremail = mysqli_real_escape_string($con, $_POST['useremail']);
+        $password = mysqli_real_escape_string($con, $_POST['password']);
 
-            $checkemail = "SELECT * FROM `user` WHERE `user_email` = '$useremail' ";
-            $emailcheck = mysqli_query($con, $checkemail);
+        $checkemail = "SELECT * FROM `user` WHERE `user_email` = '$useremail' ";
+        $emailcheck = mysqli_query($con, $checkemail);
 
-            $mailcount = mysqli_num_rows($emailcheck);
+        $mailcount = mysqli_num_rows($emailcheck);
 
-            if ($mailcount > 0) {
-                $db_data = mysqli_fetch_assoc($emailcheck);
+        if ($mailcount > 0) {
+            $db_data = mysqli_fetch_assoc($emailcheck);
 
-                $db_pass = $db_data['user_password'];
+            $db_pass = $db_data['user_password'];
 
-                $_SESSION['user_id'] = $db_data['user_id'];
-                $_SESSION['user'] = $db_data['user_name'];
-                $_SESSION['email'] = $db_data['user_email'];
+            $_SESSION['user_id'] = $db_data['user_id'];
+            $_SESSION['user'] = $db_data['user_name'];
+            $_SESSION['email'] = $db_data['user_email'];
+            $_SESSION['token'] = $db_data['user_token'];
+            $_SESSION['user-status'] =  $db_data['user_status'];
 
-                //First $password is that password which comes from input type
-                //and the second is which we get from the databse 
-                //Password verify is to check the necrypted password and the password in database in hashing format
+            //First $password is that password which comes from input type
+            //and the second is which we get from the databse 
+            //Password verify is to check the necrypted password and the password in database in hashing format
 
-                $pass_decode = password_verify($password, $db_pass);
-                if ($pass_decode) {
+            $pass_decode = password_verify($password, $db_pass);
+            if ($pass_decode) {
 
-                    if (isset($_POST['rememberme'])) {
-                        setcookie('EmailCookie', $useremail, time() + (86400 * 30));
-                        setcookie('PasswordCookie', $password, time() + (86400 * 30));
-                    }
-                    // alert("Congratulation! you are logged in successfully");
-                    // header('location: index.php');
-                    ?>
-                        <script>
-                            window.location.href = window.location.href;
-                        </script>
-                    <?php
-                } else {
-                    echo '<script>
+                if (isset($_POST['rememberme'])) {
+                    setcookie('EmailCookie', $useremail, time() + (86400 * 30));
+                    setcookie('PasswordCookie', $password, time() + (86400 * 30));
+                }
+                // alert("Congratulation! you are logged in successfully");
+                // header('location: index.php');
+            ?>
+                <script>
+                    window.location.href = window.location.href;
+                </script>
+            <?php
+            } else {
+                echo '<script>
                         swal({
                             title: "Error Occured",
                             text: "Password! Does Not Matched",
                             icon: "warning",
                         });
                         </script>';
-                }
-            } else {
-                echo '<script>
+            }
+        } else {
+            echo '<script>
                         swal({
                             title: "Error Occured",
                             text: "Invalid Email or password ",
                             icon: "warning",
                         });
                         </script>';
-            }
         }
+    }
     ?>
     <!-- Account Page -->
-    <?php 
-        if(isset($_SESSION['email']) && $_SESSION['email'])
-        {
-            $style = 'display: none'; 
-        }
+    <?php
+    if (isset($_SESSION['email']) && $_SESSION['email']) {
+        $style = 'display: none';
+    }
     ?>
-    <div class="account-page" >
+    <div class="account-page">
         <div class="container">
-        <p style="background: #fff;text-align: center;color: red;"><?php echo $_SESSION['msg'];?></p>
             <div class="row">
                 <div class="col-2">
                     <img src="img/image1.png" alt="image" width="100%">
                 </div>
-                <div class="col-2" style="<?php echo $style?>">
-                    <div class="form-container" >
+                <div class="col-2" style="<?php echo $style ?>">
+                    <div class="form-container">
                         <div class="form-btn">
                             <span onclick="login()">Login</span>
                             <span onclick="register()">Register</span>

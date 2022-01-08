@@ -30,8 +30,10 @@ include("dbcon.php");
     $zip = '';
     $state = '';
     $item = '';
-    if (isset($_SESSION['shopping_cart'])) {
-        if (isset($_SESSION['email'])) {
+    if (isset($_SESSION['shopping_cart'])) 
+    {
+        if (isset($_SESSION['email'])) 
+        {
             $user_email = $_SESSION['email'];
 
             $check_user  = mysqli_query($con, "SELECT * FROM `user` where `user_email` = '$user_email'");
@@ -47,7 +49,7 @@ include("dbcon.php");
             $city = $row['user_city'];
             $zip = $row['user_zip'];
             $state = $row['user_state'];
-    ?>
+            ?>
             <form action="" method="POST">
                 <div class="container">
                     <div class="row">
@@ -230,11 +232,15 @@ include("dbcon.php");
                         Order</button>
                 </div>
             </form>
-    <?php
-        } else {
+            <?php
+        }
+        else
+        {
             include_once('modal.php');
         }
-    } else {
+    }
+    else
+    {
         header('Location: index.php');
     }
     ?>
@@ -259,7 +265,8 @@ include("dbcon.php");
         $zip = $_POST['user_zip'];
         $order_id = rand();
 
-        foreach ($_SESSION["shopping_cart"] as $product) {
+        foreach ($_SESSION["shopping_cart"] as $product) 
+        {
 
             $pro_code = $product["product_code"];
             $pro_name = $product["product_name"];
@@ -311,14 +318,15 @@ include("dbcon.php");
             $mail->Password = "Bcsf17r23A";
             $mail->Subject = "Red Store Order";
             $mail->setFrom("arslan031776@gmail.com");
+            // $mail->AddEmbeddedImage('../imagenes/inen_header.png', 'logoinen', 'inen_header.png');
             // $mail->addEmbeddedImage("img\product_img\/' . $image. '",'Order images');
             $mail->isHTML(true);
             // $mail->addAttachment("img/gallery-1.jpg");
-
-            $mail->Body = '<table style="max-width:670px;margin:50px auto 10px;background-color:#fff;padding:50px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);-moz-box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24); border-top: solid 10px #ffd6d6;">
+            $mail->AddEmbeddedImage("img/logos/logo.png",'redstore',"logo.png");
+            $item = '<table style="max-width:670px;margin:50px auto 10px;background-color:#fff;padding:50px;-webkit-border-radius:3px;-moz-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);-moz-box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24);box-shadow:0 1px 3px rgba(0,0,0,.12),0 1px 2px rgba(0,0,0,.24); border-top: solid 10px #ffd6d6;">
             <thead>
                 <tr>
-                    <th style="text-align:left;"><img style="max-width: 150px;" src="img/logos/logo.png" alt="Red Store"></th>
+                    <th style="text-align:left;"><img style="max-width: 150px;" src=\"cid:redstore\" alt="Red Store"></th>
                     <th style="text-align:right;font-weight:400;"><?php echo date("Y/m/d H:i:s");; ?></th>
                 </tr>
             </thead>
@@ -339,25 +347,25 @@ include("dbcon.php");
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2" style="font-size:20px;padding:30px 15px 0 15px;">Items</td>
+                    <td colspan="2" style="font-size:20px;padding:30px 15px 0 15px;"><h3>Details</h3></td>
                 </tr>';
-
-
+        
+        
             if (isset($_SESSION["shopping_cart"])) {
-
+        
                 foreach ($_SESSION["shopping_cart"] as $product) {
                     $total_quantity += $product["product_quantity"];
                     $total_price += ($product["product_price"] * $product["product_quantity"]);
                     $total_tax += ($product["product_tax"] * $product["product_quantity"]);
                     $grand_total = $total_price + $total_tax;
-
+        
                     $img = $product["product_image"];
-
+        
                     $item .= '<tr style="padding:15px">
                             <td>
                                 <p style="font-size:14px;margin:0;padding:10px;;font-weight:bold;">
                                     <span style="display:block;font-size:13px;font-weight:normal;">' . $product["product_name"] . '<br>
-                                        <i>Quantity : ' . $product["product_quantity"] . '</i></span> Rs.' . $total_price . ' <b style="font-size:12px;font-weight:300;"></b>
+                                        <i>Quantity : ' . $product["product_quantity"] . '</i></span> Rs.' . $product["product_price"] . ' <b style="font-size:12px;font-weight:300;"></b>
                                 </p>
                             </td>
                             <td style="padding:15px;">
@@ -366,26 +374,26 @@ include("dbcon.php");
                                 </div>
                             </td>
                         </tr>
-                        <tr>
-                            <td colspan="2" style="border: solid 1px #ddd; padding:10px 20px;">
-                                <p style="font-size:14px;margin:0 0 6px 0;"><span style="font-weight:bold;display:inline-block;min-width:150px">Order status</span><b style="color:green;font-weight:normal;margin:0">Success</b></p>
-                                <p style="font-size:14px;margin:0 0 6px 0;"><span style="font-weight:bold;display:inline-block;min-width:146px">Transaction ID</span>' . $order_id . '</p>
-                                <p style="font-size:14px;margin:0 0 0 0;"><span style="font-weight:bold;display:inline-block;min-width:146px">Order amount</span> Rs.' . $grand_total . '.00</p>
-                            </td>
-                        </tr>
+                        
                         ';
                 }
-            }
+            
             $item .= '
                  <tr>
                     <td colspan="2" style="padding:15px;">
-                        <p style="margin:0;padding:10px;">
-                            <span style="display:block;font-size:13px;font-weight:normal;">Total Quantity = ' . $total_quantity . ' </span> 
-                            <span style="display:block;font-size:13px;font-weight:normal;">Total Tax = ' . $total_tax . ' </span>
-                            <span style="display:block;font-size:13px;font-weight:normal;">Grand Total = ' . $grand_total . '</span>
-                        </p>
                     </td>
-                    </tr>
+                </tr>';
+            }
+                $item .= '<tr style="padding:15px;" >
+                            <td colspan="2" style="border: solid 1px #ddd; padding:10px 20px;">
+                                <p style="font-size:14px;margin:0 0 6px 0;color:red;"><span style="font-weight:bold;display:inline-block;min-width:146px;">Order ID</span>' . $order_id . '</p>
+                                <p style="font-size:14px;margin:0 0 6px 0;"><span style="font-weight:bold;display:inline-block;min-width:146px">Total Quantity</span>' . $total_quantity . '</p>
+                                <p style="font-size:14px;margin:0 0 6px 0;"><span style="font-weight:bold;display:inline-block;min-width:146px">Unit Price</span>' . $total_price . '</p>
+                                <p style="font-size:14px;margin:0 0 6px 0;"><span style="font-weight:bold;display:inline-block;min-width:146px">Total Tax</span>' . $total_tax . '</p>
+                                <p style="font-size:14px;margin:0 0 0 0;"><span style="font-weight:bold;display:inline-block;min-width:146px">Order amount</span> Rs.' . $grand_total . '.00</p>
+                                <p style="font-size:14px;margin:0 0 6px 0;"><span style="font-weight:bold;display:inline-block;min-width:150px">Order status</span><b style="color:green;font-weight:normal;margin:0">Success</b></p>
+                            </td>
+                        </tr>
                     <tr>
                         <td style="height:35px;"></td>
                     </tr>
@@ -404,6 +412,8 @@ include("dbcon.php");
                 </tr>
             </tfooter>
         </table>';
+
+            $mail->Body = $item;
 
             $mail->addAddress($email);
 
@@ -432,7 +442,7 @@ include("dbcon.php");
                 text: "Your Order has been placed successfully check Your Email for order",
                 icon: "success",
             }).then(function() {
-                location.reload();
+                window.location.href = window.location.href;
                 });
             </script>';
         } else {

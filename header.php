@@ -11,7 +11,6 @@
     <title></title>
     <link rel="stylesheet" href="css/header.css">
     <link rel="stylesheet" href="css/fw/all.min.css">
-
     <script src="js/sweetalert_plugin.js"></script>
     <script src="js/jquery-3.js"></script>
 </head>
@@ -26,6 +25,22 @@
     include("cartprocess.php");
     ?>
     <div class="header">
+<!-- Account Activation Messag -->
+    <!-- <?php
+        if (isset($_SESSION['email'])) {
+            if (isset($_SESSION['msg'])) {
+                ?>
+                <div class="close_btn" id="session-msg" >
+                <span class="close" onclick="document.getElementById('session-msg').style.display='none'">&times;</span>
+                    <p id="msg" style="background: #fff;text-align: center;color: red;"><?php echo $_SESSION['msg']; ?></p>
+                    
+                </div>
+                <?php
+                // echo '<p id="msg" style="background: #fff;text-align: center;color: red;">' . $_SESSION['msg'] . '</p>';
+            }
+        }
+        ?> -->
+
         <div class="container">
             <!-- Navigation bar -->
             <div class="navbar">
@@ -137,13 +152,18 @@
 
 
     // // User Profile modal
-    var modal = document.getElementById('id01');
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-        if (event.target == modal) {
-            modal.style.display = "none";
-        }
-    }
+    // var modal = document.getElementById('id01');
+    // // When the user clicks anywhere outside of the modal, close it
+    // window.onclick = function(event) {
+    //     if (event.target == modal) {
+    //         modal.style.display = "none";
+    //     }
+        
+    // }
+
+    $(document).ready(function () {
+        $('#session-msg').delay(1000).fadeOut();
+    });
 
     // js for toggle menu 
 

@@ -46,6 +46,20 @@ include_once("cartprocess.php");
     ?>
     <!-- Header -->
     <div class="header">
+        <?php
+        if (isset($_SESSION['email'])) {
+            if (isset($_SESSION['msg'])) {
+                ?>
+                <div class="close_btn" id="session-msg" >
+                <span class="close" onclick="document.getElementById('session-msg').style.display='none'">&times;</span>
+                    <p id="msg" style="background: #fff;text-align: center;color: red;"><?php echo $_SESSION['msg']; ?></p>
+                    
+                </div>
+                <?php
+                // echo '<p id="msg" style="background: #fff;text-align: center;color: red;">' . $_SESSION['msg'] . '</p>';
+            }
+        }
+        ?>
         <div class="container">
             <!-- Navigation bar -->
             <div class="navbar">
@@ -189,12 +203,12 @@ include_once("cartprocess.php");
                             <img src="img\product_img\<?php echo  $row['product_image']; ?>" alt="Product Image" class="product_image" id="<?php echo  $row['product_code']; ?>">
                             <h4><?php echo $row['product_name']; ?></h4>
                             <div class="rating">
-                            <?php
-                                    for($i = 0; $i<round($row['product_rating']); $i++){
-                                    ?>
-                                        <i class="fa fa-star"></i>
-                                    <?php
-                                    }
+                                <?php
+                                for ($i = 0; $i < round($row['product_rating']); $i++) {
+                                ?>
+                                    <i class="fa fa-star"></i>
+                                <?php
+                                }
                                 ?>
                                 <!-- <i class="fa fa-star"><?php echo $row['product_rating']; ?></i> -->
                             </div>
@@ -232,12 +246,12 @@ include_once("cartprocess.php");
                             <img src="img\product_img\<?php echo  $row['product_image']; ?>" alt="Product Image" class="product_image" id="<?php echo  $row['product_code']; ?>">
                             <h4><?php echo $row['product_name']; ?></h4>
                             <div class="rating">
-                            <?php
-                                    for($i = 0; $i<round($row['product_rating']); $i++){
-                                    ?>
-                                        <i class="fa fa-star"></i>
-                                    <?php
-                                    }
+                                <?php
+                                for ($i = 0; $i < round($row['product_rating']); $i++) {
+                                ?>
+                                    <i class="fa fa-star"></i>
+                                <?php
+                                }
                                 ?>
                                 <!-- <i class="fa fa-star"><?php echo $row['product_rating']; ?></i> -->
                             </div>
@@ -438,7 +452,14 @@ include_once("cartprocess.php");
 </body>
 <script>
     $(document).ready(function() {
+
+        //update msg hide after some time
+        $('#session-msg').delay(1000).fadeOut();
+
+
+        //Product modal hide when page load
         $('#product_modal').hide();
+        //Ajax Call for to show porduct modal
         $('.product_image').click(function() {
             var code = $(this).attr('id');
             $.ajax({
@@ -474,7 +495,7 @@ include_once("cartprocess.php");
                     items: 1
                 },
                 600: {
-                    items: 3
+                    items: 4
                 }
             }
         });

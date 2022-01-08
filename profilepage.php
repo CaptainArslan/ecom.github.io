@@ -34,8 +34,8 @@ if (!isset($_SESSION['user'])) {
                         <thead>
                             <tr>
                                 <th>Sr#</th>
-                                <th>Trans Id</th>
-                                <th>Code</th>
+                                <!-- <th>Trans Id</th> -->
+                                <!-- <th>Code</th> -->
                                 <th>Img</th>
                                 <th>Name</th>
                                 <th>Quan</th>
@@ -51,22 +51,21 @@ if (!isset($_SESSION['user'])) {
                         <tbody>
                             <?php
                             $user_email = $_SESSION['email'];
-                            $user_id_list = mysqli_query($con, "SELECT `user_id` FROM `user` WHERE `user_email` = '$user_email'");
+                            $user_id_list = mysqli_query($con, "SELECT `user_id` FROM `user` WHERE `user_email` = '$user_email' group by `user_id` ");
                             $user_id  = mysqli_fetch_assoc($user_id_list);
                             $id = $user_id['user_id'];
                             $order_list = mysqli_query($con, "SELECT * FROM `orders` WHERE `user_id` = '$id'");
                             $order_count = mysqli_num_rows($order_list);
                             $sr = 1;
                             if ($order_count > 0) {
-                                while ($row = mysqli_fetch_array($order_list)) 
-                                {
+                                while ($row = mysqli_fetch_array($order_list)) {
                                     // echo  $row['product_img'];
                                     // echo "<br>";
                             ?>
                                     <tr>
                                         <td><?php echo $sr; ?></td>
-                                        <td><?php echo $row['order_id'];  ?></td>
-                                        <td><?php echo $row['product_code'];  ?></td>
+                                        <!-- <td><?php echo $row['order_id'];  ?></td> -->
+                                        <!-- <td><?php echo $row['product_code'];  ?></td> -->
                                         <td><img src="img/product_img/<?php echo $row['product_img'] ?>" alt="<?php echo $row['product_name'];  ?>"></td>
                                         <td><?php echo $row['product_name'];  ?></td>
                                         <td><?php echo $row['product_quantity'];  ?></td>
@@ -78,17 +77,16 @@ if (!isset($_SESSION['user'])) {
                                         <td><?php echo $row['user_zip'];  ?></td>
                                         <td><button class="btn">view</button></td>
                                     </tr>
-                                
-                            <?php
-                                    $sr ++;
-                                }
-                            } else 
-                            {
-                                ?>
-                                    <tr>
-                                        <td colspan="13">You Didn't Place any till now</td>
-                                    </tr>
+
                                 <?php
+                                    $sr++;
+                                }
+                            } else {
+                                ?>
+                                <tr>
+                                    <td colspan="13">You Didn't Place any till now</td>
+                                </tr>
+                            <?php
                             }
                             ?>
 
@@ -101,6 +99,14 @@ if (!isset($_SESSION['user'])) {
             </div>
         </div>
     </div>
+    <?php
+    if (isset($_SESSION['msg'])) {
+        echo ' <p id="msg" style="background: #fff;text-align: center;color: red;">' . $_SESSION['msg'] . '</p>';
+    } else {
+        echo ' <h3 id="msg" style="background: #fff;text-align: center;color: red;">Please Activate Your Account</h3>';
+    }
+    ?>
+
     <script>
         $(document).ready(function() {
             $('.btn').click(function() {

@@ -61,11 +61,15 @@ if (isset($_POST['action']) && $_POST['action'] == "changequantity") {
                 <tr>
                     <th>Products</th>
                     <th>Quantity</th>
-                    <!-- <th>Size</th>k -->
+                    <th>Tax</th>
                     <th>Subtotal</th>
                 </tr>
                 <?php
                 foreach ($_SESSION["shopping_cart"] as $product) {
+                    $total_quantity += ($product["product_quantity"]);
+                    $total_price += ($product["product_price"] * $product["product_quantity"]);
+                    $total_tax += ($product["product_tax"] * $product["product_quantity"]);
+                    $grand_total = $total_price + $total_tax;
                 ?>
                     <tr>
                         <td>
@@ -103,14 +107,11 @@ if (isset($_POST['action']) && $_POST['action'] == "changequantity") {
                                 </select>
                             </form>
                         </td>
-                        <!-- <td> <input type="number" value="0"> </td> -->
+                        <td> <?php echo $product["product_tax"]; ?> </td>
                         <td>Rs.<?php echo $unit_price = ($product["product_price"] * $product["product_quantity"]) ?></td>
                     </tr>
                 <?php
-                    $total_quantity += ($product["product_quantity"]);
-                    $total_price += ($product["product_price"] * $product["product_quantity"]);
-                    $total_tax += ($product["product_tax"] * $product["product_quantity"]);
-                    $grand_total = $total_price + $total_tax;
+                   
                 }
                 ?>
             <?php

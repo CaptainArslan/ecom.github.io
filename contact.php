@@ -46,7 +46,7 @@ include_once("dbcon.php");
                     echo '<script>
                 swal({
                     title: "Great News!",
-                    text: "Your Order has been placed successfully",
+                    text: "Your Message is delivered ",
                     icon: "success",
                 });
                 </script>';
